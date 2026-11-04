@@ -83,6 +83,9 @@ def build(now=None):
     videos = load('videos.json', None)           # 完整列表；None = 从没抓全过
     yt = load('youtube.json', [])
     pod = load('podcast.json', [])
+    tf = D / 'raw' / 'youtube_archive_dates.tsv'  # 文稿里嵌的、标题不像节目的 = 引用的新闻片段，不算补档
+    cited = {l.split('\t')[0] for l in tf.read_text().splitlines()
+             if l.count('\t') >= 3 and not re.search(r'睡前消息|Bedtime|马督工|马前卒', l.split('\t')[3])} if tf.exists() else set()
     up_f = D / 'raw' / 'youtube_uploaders.tsv'  # 视频 id → (频道名, 频道 id)，用于致谢
     upl = {l.split('\t')[0]: l.split('\t')[1:3] for l in up_f.read_text().splitlines()} if up_f.exists() else {}
     vraw = load('raw/bili_view_dates.json', {})  # dates.py 一次性抓的 view 接口结果
@@ -142,7 +145,7 @@ def build(now=None):
             srcs.append({'kind': 'youtube', 'url': y['url'], 'alive': y.get('alive', True), 'verified': True, 'checked_at': checked,
                          'uploader': cname, 'uploader_url': cid and f'https://www.youtube.com/channel/{cid}'})
         a_yt = (a or {}).get('youtube_id')
-        if a_yt and not any(a_yt in y['url'] for y in ys):  # 文稿里嵌的 YouTube，还没抓到确认
+        if a_yt and a_yt not in cited and not any(a_yt in y['url'] for y in ys):  # 文稿里嵌的 YouTube，还没抓到确认
             srcs.append({'kind': 'youtube', 'url': f'https://www.youtube.com/watch?v={a_yt}', 'alive': None,
                          'verified': False, 'checked_at': None})
         xg = (a or {}).get('xigua_id')

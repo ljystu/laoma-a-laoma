@@ -10,6 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 YTDLP = str(ROOT / '.venv' / 'bin' / 'yt-dlp')
 # 是否官方未能核实：UCR4U 频道名“睡前消息”、13.7 万订阅、按期号更新；@maqianzu 为“马前卒”，只发其他栏目
 CHANNELS = {'UCR4U_q_MojVVqYnawAVlryw': '睡前消息', 'UCZERVNjvgTd3Fz7k25fKkXA': '马前卒(@maqianzu)'}
+SHOW = r'睡前消息|Bedtime|马督工|马前卒'
 EP = re.compile(r'(?:【睡前消息|\[(?:Bedtime|Pre-Sleep|Sleep Before) (?:News|Message)\s*)(\d{1,4}(?:\.\d)?)(?=[】\]\s])')
 
 
@@ -63,7 +64,11 @@ def fetch(limit=200):
            if e.get('youtube_id') and e['youtube_id'] not in seen} if af.exists() else {}
     if ref and ok:
         dates = exact_dates('archive', list(ref), limit)  # 抓不到的（已删/私密）不会出现在结果里
-        out += [{'id': i, 'channel': None, 'channel_name': '文稿库引用', 'title': None, 'episode': float(no),
+        tf = ROOT / 'data' / 'raw' / 'youtube_archive_dates.tsv'
+        titles = {l.split('\t')[0]: l.split('\t')[3] for l in tf.read_text().splitlines() if l.count('\t') >= 3}
+        # 文稿里有时嵌的是节目引用的新闻片段，不是这一期本身：标题得像节目才算补档
+        ref = {i: no for i, no in ref.items() if i not in titles or re.search(SHOW, titles[i])}
+        out += [{'id': i, 'channel': None, 'channel_name': '文稿库引用', 'title': titles.get(i), 'episode': float(no),
                  'date': f'{dates[i][:4]}-{dates[i][4:6]}-{dates[i][6:]}' if dates[i][:1].isdigit() else None,
                  'alive': dates[i] != 'GONE',
                  'approx_date': None, 'url': f'https://www.youtube.com/watch?v={i}'}
