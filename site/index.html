@@ -154,7 +154,7 @@ h2 small{font-family:var(--f-px);font-size:10px;color:var(--muted);margin-left:1
 .coin{width:16px;height:16px;border:0;padding:0;cursor:pointer;border-radius:3px;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3),inset 3px 3px 0 rgba(255,255,255,.45);transition:transform .12s}
 .coin:hover{transform:translateY(-4px) scale(1.2)}
 .coin.dim{opacity:.1}
-.s-live{background:var(--sun)} .s-mirrored{background:var(--grass)} .s-transcript_only{background:var(--grape)} .s-lost{background:transparent;box-shadow:inset 0 0 0 2px var(--stone)!important} .s-unknown{background:var(--stone)} .credits,.credits+.lede,footer{overflow-wrap:anywhere} .s-skipped{background:transparent;box-shadow:inset 0 0 0 2px var(--stone)!important;opacity:.35}
+.s-live{background:var(--sun)} .s-mirrored{background:var(--grass)} .s-transcript_only{background:var(--grape)} .s-lost{background:transparent;box-shadow:none!important;outline:2px dashed var(--tomato);outline-offset:-2px} .s-unknown{background:var(--stone)} .credits,.credits+.lede,footer{overflow-wrap:anywhere} .s-skipped{background:#fff;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--edge) 35%,transparent)!important}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .filters button{font:inherit;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;background:var(--paper);color:var(--ink);border:2.5px solid var(--edge);border-radius:999px;padding:5px 14px;cursor:pointer;box-shadow:3px 3px 0 var(--edge);transition:transform .12s,opacity .12s}
 .filters button[aria-pressed="false"]{opacity:.4;box-shadow:none;transform:translate(3px,3px)}
@@ -307,7 +307,7 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-fa
 
   <section class="view" id="v-coins">
     <h2><mark>金币墙</mark><small>每期一枚</small></h2>
-    <p class="lede">金币是还健在的，绿的被吞了但有人提前存了档，紫的只剩文字版，空框是彻底查无此期。点一枚看这期流落何方。</p>
+    <p class="lede">金币是还健在的，绿的被吞了但有人提前存了档，紫的只剩文字版，空框是彻底查无此期。<b>白色方块是放假（被封）期间直接跳过的期号</b>，白块连成一片的地方，就是老马进去的那段日子。点一枚看这期流落何方。</p>
     <div class="filters" id="filters"></div>
     <div class="wall sticker" id="wall"></div>
   </section>
@@ -373,7 +373,7 @@ const safeDays=lastStop?Math.max(0,Math.round((TODAY-P(endS(lastStop)))/DAY)):0;
 const stopDays=stops.reduce((s,e)=>s+days(e),0);
 const byNo=Object.fromEntries(allEps.map(x=>[x.no,x]));
 const confName={confirmed:'实锤',inferred:'疑似',pending:'待查'};
-const stName={live:'还在 B站',mirrored:'有补档',transcript_only:'只剩文稿',lost:'彻底没了',unknown:'还没核对',skipped:'放假期间（编号直接跳过）'};
+const stName={live:'还在 B站',mirrored:'有补档',transcript_only:'只剩文稿',lost:'彻底没了',unknown:'还没核对',skipped:'放假跳过的期号'};
 const srcName={bilibili:'B站原链',wayback:'Wayback',youtube:'YouTube',podcast:'播客',transcript:'文稿',other:'其他'};
 const evName={snapshot:'快照',wayback:'Wayback',community:'粉丝记录',other:'其他'};
 const order=['live','mirrored','transcript_only','lost','unknown','skipped'];
@@ -382,7 +382,11 @@ const sourcesFor=x=>x.sources||[];
  const ups=Object.entries(up).sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0]));
  document.getElementById('upn').textContent=`${ups.length} 位`;
  document.getElementById('uploaders').innerHTML=ups.map(([k,v])=>`<li>${v.url?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(k)}</a>`:esc(k)}（${v.n} 期）</li>`).join('');}
-const years={};for(const x of allEps.slice().sort((p,q)=>p.no-q.no))(years[x.aired===false?'放假期间（编号直接跳过）':x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);
+const years={};{const srt=allEps.slice().sort((p,q)=>p.no-q.no);const dd=srt.filter(x=>x.date&&x.aired!==false);
+  const skipYear=x=>{let lo=null,hi=null;for(const d of dd){if(d.no<x.no)lo=d;else{hi=d;break;}}
+    if(lo&&hi){const t=P(lo.date)+(P(hi.date)-P(lo.date))*(x.no-lo.no)/(hi.no-lo.no);return String(new Date(t).getUTCFullYear());}
+    return (lo||hi)?(lo||hi).date.slice(0,4):'日期未知';};
+  for(const x of srt)(years[x.aired===false?skipYear(x):x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);}
 const yearKeys=Object.keys(years).sort((p,q)=>(/^\d/.test(q)-/^\d/.test(p))||p.localeCompare(q));
 
 const lastAgo=lu.date?Math.round((TODAY-P(lu.date))/DAY):null;
