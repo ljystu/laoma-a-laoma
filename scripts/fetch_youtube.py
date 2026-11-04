@@ -73,6 +73,20 @@ def fetch(limit=200):
     return out, ok
 
 
+def uploaders(ids):
+    """YouTube 视频的上传者（频道名、频道 id），用于致谢。缓存到 youtube_uploaders.tsv，只补新的。"""
+    f = ROOT / 'data' / 'raw' / 'youtube_uploaders.tsv'
+    have = {l.split('\t')[0]: l.split('\t')[1:3] for l in f.read_text().splitlines()} if f.exists() else {}
+    todo = [i for i in ids if i not in have]
+    if todo:
+        r = subprocess.run([YTDLP, '--skip-download', '--ignore-errors', '--sleep-requests', '1', '--sleep-interval', '3',
+                            '--print', '%(id)s\t%(channel)s\t%(channel_id)s', '--'] + todo, capture_output=True, text=True)
+        with f.open('a') as fh:
+            fh.write(r.stdout)
+        have.update({l.split('\t')[0]: l.split('\t')[1:3] for l in r.stdout.splitlines()})
+    return have
+
+
 def search_mirrors(nos):
     """B站和已知频道都没有的期：YouTube 搜“睡前消息 N”，标题含【睡前消息N】/[... N] 才算补档。缓存到 yt_search_mirrors.json。"""
     f = ROOT / 'data' / 'raw' / 'yt_search_mirrors.json'
@@ -80,7 +94,7 @@ def search_mirrors(nos):
     for n in [n for n in nos if str(n) not in cache]:
         r = subprocess.run([YTDLP, '--flat-playlist', '-J', f'ytsearch10:睡前消息 {n:g}'], capture_output=True, text=True)
         es = json.loads(r.stdout)['entries'] if r.returncode == 0 else []
-        cache[str(n)] = [{'id': e['id'], 'title': e.get('title'), 'channel': e.get('channel'),
+        cache[str(n)] = [{'id': e['id'], 'title': e.get('title'), 'channel': e.get('channel'), 'channel_id': e.get('channel_id'),
                           'url': f"https://www.youtube.com/watch?v={e['id']}"}
                          for e in es if (m := EP.search(e.get('title') or '')) and float(m.group(1)) == n]
         f.write_text(json.dumps(cache, ensure_ascii=False, indent=1))
@@ -89,6 +103,11 @@ def search_mirrors(nos):
 
 
 if __name__ == '__main__':
+    if sys.argv[1:] == ['uploaders']:
+        ids = [v['id'] for v in json.loads((ROOT / 'data' / 'youtube.json').read_text()) if v['channel_name'] == '文稿库引用']
+        ids += [v['id'] for vs in json.loads((ROOT / 'data' / 'raw' / 'yt_search_mirrors.json').read_text()).values() for v in vs]
+        print(f'上传者：{len(uploaders(ids))} 条')
+        raise SystemExit
     if sys.argv[1:2] == ['search']:
         res = search_mirrors([float(x) for x in sys.argv[2:]])
         print({k: [(v['channel'], v['title'][:30]) for v in vs] for k, vs in res.items()})

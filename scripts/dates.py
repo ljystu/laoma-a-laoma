@@ -10,6 +10,8 @@ BJ = dt.timezone(dt.timedelta(hours=8))
 ALPHA = 'FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf'
 # 编号跳过、从没播出的区间（研究结论：暑假 / 冷静期 / 1073-1074 后被放假）
 SKIPPED = [(597, 645), (687, 841), (1076, 1121)]
+# 封禁/禁言期间“暂无更新”的期号：没有任何平台发布记录，推断同样跳过
+SKIPPED_INFERRED = [(590, 591), (674, 676), (948, 953)]
 
 
 def bv2aid(bv):
@@ -22,8 +24,8 @@ def bv2aid(bv):
     return (t & ((1 << 51) - 1)) ^ 23442827791579
 
 
-def skipped(n):
-    return any(lo <= n <= hi for lo, hi in SKIPPED)
+def skipped(n, inferred=True):
+    return any(lo <= n <= hi for lo, hi in SKIPPED + (SKIPPED_INFERRED if inferred else []))
 
 
 def _od(s):
@@ -125,7 +127,7 @@ if __name__ == '__main__':
         raise SystemExit
     assert bv2aid('BV17x411w7KC') == 170001, bv2aid('BV17x411w7KC')
     assert bv2aid('BV1L9Uoa9EUx') == 111298867365120, bv2aid('BV1L9Uoa9EUx')
-    assert skipped(700) and not skipped(686) and not skipped(1122)
+    assert skipped(700) and not skipped(686) and not skipped(1122) and skipped(950) and not skipped(950, inferred=False)
     eps = {float(e['no']): e for e in json.loads((ROOT / 'data' / 'episodes.json').read_text())}
     want = [e['bvid'] for e in eps.values() if e['bvid'] and e.get('aired', True)]  # 全部查一遍：拿精确日期 + 是否还在
     ok, n, cache = fill_view(want)

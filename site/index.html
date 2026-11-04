@@ -262,19 +262,23 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-fa
         <div class="tier sticker"><div class="t" style="background:var(--sun);color:#16161D">疑似</div><p><b>人突然没了，但没抓到现行</b>两次投稿间隔超过平时的 3 倍，但没有前后快照可以对比。</p></div>
         <div class="tier sticker"><div class="t" style="background:var(--fog)">待查</div><p><b>探监机器人刚发现不对劲</b>核对完再升级或撤掉。</p></div>
       </div>
-      <h2 style="font-size:24px;margin-top:20px">数据从哪来</h2>
-      <ul>
-        <li>B站空间投稿列表和账号状态，每 6 小时抓一次并存档</li>
-        <li>Wayback Machine 的历史快照，找回被删视频的标题和消失时间</li>
-        <li>YouTube 官方频道和粉丝补档、小宇宙等播客、粉丝整理的文稿</li>
-        <li>当时的讨论帖和截图只作补充，单靠它们不算实锤</li>
+      <h2 style="font-size:24px;margin-top:20px" id="credits">数据来源与致谢</h2>
+      <p class="lede">本站只整理公开页面上能查到的信息，是非官方的个人项目，与马督工及《睡前消息》节目组没有任何关联。下面每一个来源都为这份记录出了力，在此致谢。</p>
+      <ul class="credits">
+        <li><b>睡前消息文稿库</b>（主要数据来源）：<a href="https://archive.bedtime.news" target="_blank" rel="noopener">archive.bedtime.news</a>，源文件在 <a href="https://github.com/bedtimenews/bedtimenews-archive-contents" target="_blank" rel="noopener">GitHub · bedtimenews/bedtimenews-archive-contents</a>。期号、标题、视频编号、停更提示和下架合集都来自这里。感谢多年来整理文稿的每一位志愿者（<a href="https://github.com/bedtimenews/bedtimenews-archive-contents/graphs/contributors" target="_blank" rel="noopener">贡献者名单</a>）。</li>
+        <li><b>B站 · 马督工</b>：<a href="https://space.bilibili.com/316568752" target="_blank" rel="noopener">space.bilibili.com/316568752</a>。通过 B站公开接口核对每期视频是否还在、发布时间。</li>
+        <li><b>YouTube ·「睡前消息」频道</b>：<a href="https://www.youtube.com/channel/UCR4U_q_MojVVqYnawAVlryw" target="_blank" rel="noopener">youtube.com/channel/UCR4U_q_MojVVqYnawAVlryw</a>。用于核对上传日期、作为补档来源。</li>
+        <li><b>YouTube 补档上传者</b>（<span id="upn">…</span>）：为下架或未上传的期数保留了副本。<details><summary>展开名单</summary><ul id="uploaders"></ul></details></li>
+        <li><b>蜻蜓FM ·「睡前消息」音频</b>：<a href="https://www.qtfm.cn/channels/378005/" target="_blank" rel="noopener">qtfm.cn/channels/378005</a>。提供了 2020–2022 年多期的原播出日期。</li>
+        <li><b>Internet Archive · Wayback Machine</b>：<a href="https://web.archive.org/" target="_blank" rel="noopener">web.archive.org</a>。历史快照是判断“实锤”的依据。</li>
+        <li><b>西瓜视频</b>：文稿库记录的视频编号，用于推算当时的发布时间。</li>
       </ul>
-      <p class="lede">发现错漏？在 GitHub 上改 JSON 提 PR，或者开 Issue 附上存档链接。</p>
+      <p class="lede">发现错漏？到 <a href="https://github.com/ljystu/laoma-a-laoma" target="_blank" rel="noopener">GitHub · ljystu/laoma-a-laoma</a> 提 Issue 或 PR，附上存档链接。</p>
     </div>
   </section>
 </main>
 
-<footer><div class="wrap"><span>每 6 小时探一次监</span><span>DATA: STATUS · EPISODES · EVENTS</span><span>捞到补档？去 GitHub 投喂</span></div></footer>
+<footer><div class="wrap"><span>每 6 小时探一次监</span><span>数据来源：<a href="https://archive.bedtime.news" target="_blank" rel="noopener">睡前消息文稿库</a> · B站 · YouTube · 蜻蜓FM · Wayback Machine（<a href="#credits">致谢</a>）</span><span>非官方，与节目组无关 · <a href="https://github.com/ljystu/laoma-a-laoma" target="_blank" rel="noopener">GitHub</a></span></div></footer>
 <aside class="drawer sticker" id="drawer" hidden aria-live="polite"></aside>
 
 <script>
@@ -315,6 +319,10 @@ const srcName={bilibili:'B站原链',wayback:'Wayback',youtube:'YouTube',podcast
 const evName={snapshot:'快照',wayback:'Wayback',community:'粉丝记录',other:'其他'};
 const order=['live','mirrored','transcript_only','lost','unknown','skipped'];
 const sourcesFor=x=>x.sources||[];
+{const up={};for(const x of allEps)for(const s of sourcesFor(x))if(s.kind==='youtube'&&s.uploader&&s.uploader!=='睡前消息'){(up[s.uploader]??={url:s.uploader_url,n:0}).n++;}
+ const ups=Object.entries(up).sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0]));
+ document.getElementById('upn').textContent=`${ups.length} 位`;
+ document.getElementById('uploaders').innerHTML=ups.map(([k,v])=>`<li>${v.url?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(k)}</a>`:esc(k)}（${v.n} 期）</li>`).join('');}
 const years={};for(const x of allEps.slice().sort((p,q)=>p.no-q.no))(years[x.aired===false?'停播（编号跳过）':x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);
 const yearKeys=Object.keys(years).sort((p,q)=>(/^\d/.test(q)-/^\d/.test(p))||p.localeCompare(q));
 
@@ -599,7 +607,7 @@ const on=new Set(order);
 const fl=document.getElementById('filters');
 fl.innerHTML=order.map(k=>`<button aria-pressed="true" data-s="${k}"><span class="coin s-${k}"></span>${stName[k]} <span class="c">${allEps.filter(x=>x.status===k).length}</span></button>`).join('');
 fl.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const k=b.dataset.s;on.has(k)?on.delete(k):on.add(k);b.setAttribute('aria-pressed',on.has(k));document.querySelectorAll('#wall .coin').forEach(c=>c.classList.toggle('dim',!on.has(byNo[c.dataset.no].status)));});
-document.getElementById('wall').innerHTML=yearKeys.map(y=>[y,years[y]]).map(([y,xs])=>`<div class="year"><div class="y">${y}</div><div class="cells">${xs.map(x=>`<button class="coin s-${x.status}" data-no="${x.no}" title="第${x.no}期 · ${x.date?x.date+(x.date_estimated?'（推算）':''):'日期未知'} · ${stName[x.status]}" aria-label="第${x.no}期 ${stName[x.status]}"></button>`).join('')}</div></div>`).join('');
+document.getElementById('wall').innerHTML=yearKeys.map(y=>[y,years[y]]).map(([y,xs])=>`<div class="year"><div class="y">${y}</div><div class="cells">${xs.map(x=>`<button class="coin s-${x.status}" data-no="${x.no}" title="第${x.no}期 · ${x.aired===false?(x.skip_note||'编号跳过，没有播出'):x.date?x.date+(x.date_estimated?'（推算）':''):'日期未知'} · ${stName[x.status]}" aria-label="第${x.no}期 ${stName[x.status]}"></button>`).join('')}</div></div>`).join('');
 
 /* drawer */
 const dr=document.getElementById('drawer');
@@ -607,7 +615,7 @@ function openEp(n){
   const x=byNo[n], ev=events.find(e=>e.id===x.event_id);
   dr.innerHTML=`<button class="x" id="dx">关掉</button>
    <div class="no">EP.${x.no}</div><h3>${esc(x.title)||'（标题未知）'}</h3>
-   <dl><dt>发布</dt><dd>${dot(x.date)}${x.date_estimated?' <small>推算</small>':''}</dd>
+   <dl><dt>发布</dt><dd>${x.aired===false?'没有播出（编号跳过）'+(x.skip_note?` <small>${esc(x.skip_note)}</small>`:''):dot(x.date)+(x.date_estimated?' <small>推算</small>':'')}</dd>
    <dt>下落</dt><dd><span class="coin s-${x.status}" style="display:inline-block;vertical-align:-3px;margin-right:6px;cursor:default"></span>${stName[x.status]}</dd>
    ${x.removed_at?`<dt>被吞于</dt><dd>${dot(x.removed_at)}</dd>`:''}
    ${ev?`<dt>哪一关</dt><dd><a href="#timeline" data-goto="${ev.id}">${dot(ev.start).slice(0,7)} ${ev.title}</a></dd>`:''}

@@ -83,6 +83,8 @@ def build(now=None):
     videos = load('videos.json', None)           # 完整列表；None = 从没抓全过
     yt = load('youtube.json', [])
     pod = load('podcast.json', [])
+    up_f = D / 'raw' / 'youtube_uploaders.tsv'  # 视频 id → (频道名, 频道 id)，用于致谢
+    upl = {l.split('\t')[0]: l.split('\t')[1:3] for l in up_f.read_text().splitlines()} if up_f.exists() else {}
     vraw = load('raw/bili_view_dates.json', {})  # dates.py 一次性抓的 view 接口结果
     view = {bv: v['date'] for bv, v in vraw.items() if v.get('date')}
     ar = load('archive.json', {})
@@ -136,7 +138,9 @@ def build(now=None):
             srcs.append({'kind': 'bilibili', 'url': f'https://www.bilibili.com/video/{bvid}', 'official': True,
                          'alive': alive, 'verified': alive is not None, 'checked_at': checked})
         for y in ys:
-            srcs.append({'kind': 'youtube', 'url': y['url'], 'alive': y.get('alive', True), 'verified': True, 'checked_at': checked})
+            cname, cid = (y['channel_name'], y['channel']) if y.get('channel') else upl.get(y['url'][-11:], [None, None])
+            srcs.append({'kind': 'youtube', 'url': y['url'], 'alive': y.get('alive', True), 'verified': True, 'checked_at': checked,
+                         'uploader': cname, 'uploader_url': cid and f'https://www.youtube.com/channel/{cid}'})
         a_yt = (a or {}).get('youtube_id')
         if a_yt and not any(a_yt in y['url'] for y in ys):  # 文稿里嵌的 YouTube，还没抓到确认
             srcs.append({'kind': 'youtube', 'url': f'https://www.youtube.com/watch?v={a_yt}', 'alive': None,
@@ -191,6 +195,8 @@ def build(now=None):
         e['date_estimated'] = False
         if not e['aired']:
             e['status'] = 'skipped'
+            if not skipped(n, inferred=False):
+                e['skip_note'] = '推断：无任何平台发布记录'
     for n, (d, src) in estimate(eps).items():
         eps[n].update(date=d, date_source=src, date_estimated=True)
 
