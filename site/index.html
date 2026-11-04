@@ -190,38 +190,64 @@ h2 small{font-family:var(--f-px);font-size:10px;color:var(--muted);margin-left:1
 .method ul{margin:0;padding-left:20px} .method li{margin-bottom:6px}
 footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--f-px);font-size:10px;color:var(--muted)}
 
-/* timeline v5：全程大总览 + 加高年条 + 进宫卡片放大 + 祭天收成小条 */
-.overview{margin:18px 0 30px;overflow-x:auto;padding:34px 6px 10px}
-.ov{position:relative;min-width:980px;height:200px;background:var(--paper);border:3px solid var(--edge);border-radius:18px;box-shadow:6px 6px 0 var(--edge)}
-.ov .yr{position:absolute;top:0;bottom:0;border-left:2px dashed var(--fog);padding:0 10px 6px;display:flex;align-items:flex-end;font-family:var(--f-num);font-size:20px;color:var(--muted)}
-.ov .blk{position:absolute;bottom:44px;height:88px;border:3px solid var(--edge);border-radius:10px;cursor:pointer;min-width:16px;box-shadow:3px 3px 0 var(--edge);transition:transform .15s}
-.ov .blk:hover{transform:translateY(-4px)}
-.ov .blk.alt{height:56px}
-.ov .blk.c{background:var(--tomato)}
-.ov .blk.i{background:repeating-linear-gradient(135deg,var(--sun) 0 7px,color-mix(in srgb,var(--sun) 45%,var(--paper)) 7px 12px)}
-.ov .blk.p{background:var(--stone)}
-.ov .lab{position:absolute;z-index:3;bottom:100%;left:-3px;margin-bottom:6px;white-space:nowrap;font-weight:900;font-size:13px;line-height:1.2;color:var(--ink);background:var(--paper);padding:2px 6px;border:2px solid var(--edge);border-radius:6px}
-.ov .blk.r .lab{left:auto;right:-3px}
-.ov .lab b{font-family:var(--f-num);font-size:15px;margin-right:4px}
-.ov .pin{position:absolute;bottom:32px;width:5px;height:12px;margin-left:-2px;background:var(--grape);border-radius:2px;cursor:pointer}
-.ov .now{position:absolute;top:-10px;bottom:-10px;width:3px;background:var(--sky);border-radius:2px}
-.ov .now::after{content:"今天";position:absolute;top:-20px;left:-12px;font-size:12px;font-weight:900;color:var(--sky);white-space:nowrap}
-.strip{height:64px}
-.seg{top:20px;height:28px;font-size:13px}
-.tl-y{font-size:36px}
-.yr-cards{grid-template-columns:1fr!important;gap:22px}
-.ev.big{padding:24px 28px}
-.ev.big h3{font-size:32px}
-.ev.big p{font-size:15px}
-.yr-tk{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
-.yr-tk>span{font-size:13px;font-weight:900;color:var(--muted);margin-right:4px}
-.yr-tk button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border:2.5px solid var(--edge);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--edge)}
-.yr-tk button[aria-expanded="true"]{background:var(--fog)}
-.yr-tk button i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--grape);margin-right:6px;vertical-align:-1px}
-.yr-tk button.c i{background:var(--tomato)}
-.yr-tk-cards{display:grid;gap:14px;margin-top:12px}
-.ov-hint{display:none;font-size:12px;font-weight:700;color:var(--muted);margin:14px 0 -26px}
-@media (max-width:1000px){.ov-hint{display:block}}
+/* === big timeline redesign === */
+.events{grid-template-columns:minmax(0,1fr)}
+.pano-wrap{margin:18px 0 8px;min-width:0;max-width:100%}
+.pano-scroll{overflow-x:auto;overflow-y:visible;padding:8px 6px 14px;margin:0 -6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.pano{position:relative;min-width:980px;height:var(--ph,330px);background:var(--paper);border:2.5px solid var(--edge);border-radius:18px;box-shadow:6px 6px 0 var(--edge);overflow:hidden}
+.pano .sky{position:absolute;inset:0 0 70px 0;background:linear-gradient(var(--scene-top),var(--scene-bot))}
+.pano .yrband{position:absolute;top:0;bottom:70px;border-left:2px dashed color-mix(in srgb,var(--edge) 25%,transparent)}
+.pano .yrband b{display:none;position:absolute;bottom:6px;left:8px;font-family:var(--f-num);font-size:30px;line-height:1;color:color-mix(in srgb,var(--ink) 22%,transparent);pointer-events:none}
+.pano .road{position:absolute;left:0;right:0;bottom:46px;height:24px;background:var(--grass);border-top:2.5px solid var(--edge);border-bottom:2.5px solid var(--edge)}
+.pano .road::after{content:"";position:absolute;left:0;right:0;top:9px;height:3px;background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 28px);opacity:.75}
+.pano .ground{position:absolute;left:0;right:0;bottom:0;height:46px;background:var(--dirt)}
+.pano .yl{position:absolute;bottom:9px;font-family:var(--f-num);font-size:22px;line-height:1;color:#fff;transform:translateX(8px);z-index:2;text-shadow:2px 2px 0 var(--edge)}
+.pano .yl.q{font-size:14px;opacity:.75;bottom:13px}
+.pano .cell{position:absolute;bottom:70px;border:2.5px solid var(--edge);border-bottom:0;border-radius:8px 8px 0 0;cursor:pointer;min-width:12px;
+  background:repeating-linear-gradient(90deg,var(--edge) 0 3px,transparent 3px 11px),var(--c,var(--sun));transition:transform .15s,filter .15s;transform-origin:bottom}
+.pano .cell:hover,.pano .cell:focus-visible{transform:scaleY(1.06);filter:brightness(1.08)}
+.pano .cell.c{--c:var(--tomato)} .pano .cell.i{--c:var(--sun)} .pano .cell.p{--c:var(--stone)} .pano .cell.v{--c:#7FB8E6}
+.pano .tag{position:absolute;transform:translateX(-50%);background:var(--paper);border:2.5px solid var(--edge);border-radius:10px;box-shadow:3px 3px 0 var(--edge);padding:4px 10px 5px;text-align:center;white-space:nowrap;cursor:pointer;z-index:2;line-height:1.15}
+.pano .tag .n{display:block;font-family:var(--f-px);font-size:9px;color:var(--muted)}
+.pano .tag .d{display:block;font-family:var(--f-num);font-size:20px}
+.pano .tag .w{display:block;font-size:11px;font-weight:700;color:var(--muted)}
+.pano .tag.c .d{color:var(--tomato)}
+.pano .stem{position:absolute;width:0;border-left:2px dashed var(--edge);z-index:1}
+.pano .pin{position:absolute;bottom:72px;width:14px;height:14px;margin-left:-7px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--grape);border:2px solid var(--edge);cursor:pointer;z-index:1;padding:0}
+.pano .pin:hover{transform:rotate(-45deg) scale(1.3)}
+.pano .now{position:absolute;bottom:46px;top:10px;width:3px;background:var(--sky);z-index:3}
+.pano .now::before{content:"今天";position:absolute;top:-2px;right:6px;font-size:12px;font-weight:900;color:#fff;background:var(--sky);border:2px solid var(--edge);border-radius:6px;padding:0 6px;white-space:nowrap}
+.pano .horse{position:absolute;bottom:62px;width:42px;height:33px;margin-left:-21px;z-index:4;image-rendering:pixelated}
+.pano-hint{display:none;font-size:12px;font-weight:700;color:var(--muted);text-align:center;margin-top:2px}
+@media (max-width:1000px){.pano-hint{display:block}}
+.tl-year{grid-template-columns:110px minmax(0,1fr);gap:18px;padding-block:26px}
+.tl-y{font-size:40px;padding-top:6px}
+.tl-y small{font-size:13px;margin-top:10px}
+.strip{height:70px;border-radius:14px;box-shadow:4px 4px 0 var(--edge)}
+.strip .mo{font-size:11px;padding:3px 5px}
+.strip .tick{height:12px;width:3px;bottom:5px}
+.seg{top:20px;height:34px;font-size:14px;border-width:2.5px;border-radius:8px;box-shadow:2px 2px 0 var(--edge)}
+.flag{width:22px;height:22px;margin-left:-11px;top:-14px;font-size:12px;line-height:17px}
+.yr-cards{grid-template-columns:1fr;gap:22px;margin-top:22px}
+.ev{padding:22px 26px;grid-template-columns:84px minmax(0,1fr);gap:22px}
+.ev .face{width:84px;height:84px;font-size:18px}
+.ev h3{font-size:32px}
+.ev .when{font-size:15px}
+.ev p{font-size:15px;max-width:72ch}
+.yr-tk{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px;font-size:13px;font-weight:700}
+.yr-tk .lab{color:var(--muted);margin-right:2px}
+.yr-tk button{font:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border:2.5px solid var(--edge);border-radius:999px;background:var(--paper);color:var(--ink);box-shadow:2px 2px 0 var(--edge);cursor:pointer}
+.yr-tk button i{width:10px;height:10px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--grape);border:1.5px solid var(--edge)}
+.yr-tk button.confirmed i{background:var(--tomato)}
+.yr-tk button[aria-expanded="true"]{background:var(--grape);color:#fff}
+.yr-tkcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
+.yr-tkcards:empty{display:none}
+.ev.takedown{grid-template-columns:44px minmax(0,1fr);padding:14px 18px;gap:14px}
+.ev.takedown .face{width:44px;height:44px;font-size:11px}
+.ev.takedown h3{font-size:20px}
+@media (max-width:760px){.tl-year{grid-template-columns:1fr;gap:10px;padding-block:20px}.tl-y{font-size:34px}.yr-tkcards{grid-template-columns:1fr}
+  .ev{grid-template-columns:60px minmax(0,1fr);gap:14px;padding:18px}.ev .face{width:60px;height:60px;font-size:13px}.ev h3{font-size:24px}.strip{height:60px}.seg{top:16px;height:30px;font-size:12px}}
+@media (max-width:420px){.ev{grid-template-columns:1fr}}
 </style>
 
 <header>
@@ -243,7 +269,7 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-fa
     <div class="stats" id="stats"></div>
 
     <h2>老马的<mark>入狱时间线</mark><small id="tlspan"></small></h2>
-    <p class="lede">一年一行，从今年往回翻。每行是 1 到 12 月，条越长关得越久；红色是实锤，黄色是疑似，灰色是待查，蓝色沙滩是编辑部自己放假。紫色小旗是那天有视频被拿去祭天。点条或小旗跳到对应的档案卡片。</p>
+    <p class="lede">上面这张大图是老马这几年的全景：绿色马路是正常更新，竖起来的牢房就是进宫（被封），越宽关得越久；红色是实锤，黄色是疑似。紫色小钉是那天有视频被拿去祭天。点牢房或小钉，跳到下面那一年的档案。</p>
     <div class="tlkey">
       <span><i class="k-c"></i>实锤进宫</span><span><i class="k-i"></i>疑似进宫</span><span><i class="k-p"></i>待查</span><span><i class="k-v"></i>编辑部放假</span><span><i class="k-t"></i>视频被祭天</span><span><i class="k-u"></i>正常更新</span>
     </div>
@@ -566,7 +592,7 @@ addEventListener('keydown',e=>{if(!active)return;
   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();keys[e.key==='ArrowRight'?'R':'L']=true;if(auto){setAuto(false);note('换你操控了。');}}
   else if(e.key===' '||e.key==='ArrowUp'){e.preventDefault();if(!e.repeat)jump();}});
 addEventListener('keyup',e=>{if(e.key==='ArrowRight')keys.R=false;if(e.key==='ArrowLeft')keys.L=false;});
-noteEl.addEventListener('click',ev=>{const a=ev.target.closest('[data-jump]');if(!a)return;ev.preventDefault();location.hash='timeline';const el=document.getElementById(a.getAttribute('href').slice(1));if(el)setTimeout(()=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');},80);return;el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');});
+noteEl.addEventListener('click',ev=>{const a=ev.target.closest('[data-jump]');if(!a)return;ev.preventDefault();location.hash='timeline';const id=a.getAttribute('href').slice(1);const el=(window.revealEv&&window.revealEv(id))||document.getElementById(id);if(el)setTimeout(()=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');},80);return;el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');});
 addEventListener('resize',()=>{if(location.hash==='#game')run();});
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',readColors);
 new MutationObserver(readColors).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
@@ -609,7 +635,7 @@ document.getElementById('events').innerHTML=events.slice().reverse().map((e,i)=>
     for(const e of events){
       const a=P(e.start), b=endT(e)+DAY;
       if(b<=ys||a>=ye)continue;
-      if(e.type==='takedown'){strip+=`<button class="flag" data-ev="${e.id}" style="left:${pct(a)}%" title="${dot(e.start)} ${e.affected_episodes.length} 期被祭天">吞</button>`;}
+      if(e.type==='takedown'){if(a>=ys)strip+=`<button class="flag" data-ev="${e.id}" style="left:${pct(a)}%" title="${dot(e.start)} ${e.affected_episodes.length} 期被祭天">吞</button>`;}
       else{const cls=e.voluntary?'v':e.confidence==='confirmed'?'c':e.confidence==='inferred'?'i':'p';
         const l=Math.max(a,ys), r=Math.min(b,ye), w=(r-l)/span*100;
         strip+=`<span class="seg ${cls}" data-ev="${e.id}" style="left:${pct(l)}%;width:${w.toFixed(2)}%" title="${dot(e.start)} → ${evEnd(e)?dot(evEnd(e)):'至今'}">${w>6?days(e)+'天':''}</span>`;}
@@ -620,36 +646,57 @@ document.getElementById('events').innerHTML=events.slice().reverse().map((e,i)=>
     const sub=[nb?`进宫 ${nb} 次`:'',nt?`祭天 ${nt} 次`:'',inYear.some(e=>e.voluntary)?'放假':'',carry.length?'接上年':''].filter(Boolean).join(' · ')||'平安无事';
     const main=inYear.filter(e=>e.type!=='takedown').sort((p,q)=>P(q.start)-P(p.start));
     const tks=inYear.filter(e=>e.type==='takedown').sort((p,q)=>P(q.start)-P(p.start));
-    const chips=tks.length?`<div class="yr-tk"><span>被祭天 ${tks.length} 次：</span>${tks.map(e=>`<button data-tk="${e.id}" class="${e.confidence==='confirmed'?'c':''}" aria-expanded="false"><i></i>${dot(e.start).slice(5)} 第${e.affected_episodes.join('、')}期</button>`).join('')}</div><div class="yr-tk-cards"></div>`:'';
     html+=`<div class="tl-year" data-y="${y}"><div class="tl-y">${y}<small>${sub}</small></div><div><div class="strip">${strip}</div>
-      ${main.length||tks.length?`${main.length?`<div class="yr-cards" data-ids="${main.map(e=>e.id).join(',')}"></div>`:''}${chips}`:carry.length?`<div class="yr-quiet">${carry.map(e=>`上一年开始的「${e.voluntary?'编辑部放假':jailTitle(e)}」一直持续到 ${evEnd(e)?dot(evEnd(e)).slice(5):'今天'}。<button class="yr-more" data-ev="${e.id}" style="margin:0 0 0 6px">看档案 ↑</button>`).join('<br>')}</div>`:`<div class="yr-quiet">这一年老马一直在外面，正常更新。</div>`}</div></div>`;
+      ${main.length?`<div class="yr-cards" data-ids="${main.map(e=>e.id).join(',')}"></div>`:''}${tks.length?`<div class="yr-tk"><span class="lab">被祭天 ${tks.length} 次（点开看档案）：</span>${tks.map(e=>`<button data-tk="${e.id}" aria-expanded="false" class="${e.confidence}"><i></i>${dot(e.start).slice(5)} 第${e.affected_episodes.join('、')}期</button>`).join('')}</div><div class="yr-tkcards"></div>`:''}${!main.length&&carry.length?`<div class="yr-quiet">${carry.map(e=>`上一年开始的「${e.voluntary?'编辑部放假':jailTitle(e)}」一直持续到 ${evEnd(e)?dot(evEnd(e)).slice(5):'今天'}。<button class="yr-more" data-ev="${e.id}" style="margin:0 0 0 6px">看档案 ↑</button>`).join('<br>')}</div>`:''}${!main.length&&!tks.length&&!carry.length?`<div class="yr-quiet">这一年老马一直在外面，正常更新。</div>`:''}</div></div>`;
   }
-  // 全程总览：每次进宫一块大色块（上面写第几次、几天），祭天是底部小紫条
-  const oS=Date.UTC(y0,0,1), oE=Date.UTC(y1+1,0,1), op=t=>((t-oS)/(oE-oS)*100).toFixed(2);
-  let ov='';
-  for(let y=y0;y<=y1;y++)ov+=`<span class="yr" style="left:${op(Date.UTC(y,0,1))}%">${y}</span>`;
-  events.filter(e=>e.type!=='takedown').forEach((e,k)=>{const a=P(e.start),b=endT(e)+DAY,cls=e.confidence==='confirmed'?'c':e.confidence==='inferred'?'i':'p';
-    ov+=`<button class="blk ${cls}${k%2?' alt':''}${op(a)>85?' r':''}" data-ev="${e.id}" style="left:${op(a)}%;width:${((b-a)/(oE-oS)*100).toFixed(2)}%" title="${dot(e.start)} → ${evEnd(e)?dot(evEnd(e)):'至今'}" aria-label="第${nth[e.id]}次进宫 ${days(e)}天"><span class="lab"><b>#${nth[e.id]}</b>${days(e)} 天</span></button>`;});
-  events.filter(e=>e.type==='takedown').forEach(e=>{ov+=`<i class="pin" data-ev="${e.id}" style="left:${op(P(e.start))}%" title="${dot(e.start)} 第${e.affected_episodes.join('、')}期被祭天"></i>`;});
-  ov+=`<i class="now" style="left:${op(TODAY)}%"></i>`;
-  box.innerHTML=`<div class="ov-hint">← 左右滑动看全程</div><div class="overview"><div class="ov">${ov}</div></div>`+html;
-  {const o=box.querySelector('.overview');  // 手机上先看最近几年：等它真正有宽度再滚到最右
-   new ResizeObserver((_,ob)=>{if(o.clientWidth&&o.scrollWidth>o.clientWidth){o.scrollLeft=o.scrollWidth;ob.disconnect();}}).observe(o);}
-  box.querySelectorAll('.yr-cards').forEach(g=>g.dataset.ids.split(',').filter(Boolean).forEach(id=>{if(byId[id]){byId[id].classList.add('big');g.appendChild(byId[id]);}}));
+  /* panorama */
+  const pS=Date.UTC(y0,0,1), pE=Date.UTC(y1+1,0,1);
+  const busy=y=>events.some(e=>e.type!=='takedown'&&P(e.start)<Date.UTC(y+1,0,1)&&endT(e)>=Date.UTC(y,0,1));
+  const yw={};let wsum=0;for(let y=y0;y<=y1;y++){yw[y]=busy(y)?3.4:1;wsum+=yw[y];}
+  const ycum={};{let c=0;for(let y=y0;y<=y1;y++){ycum[y]=c;c+=yw[y];}}
+  const pp=t=>{const d=new Date(Math.min(Math.max(t,pS),pE-1)),y=d.getUTCFullYear(),ys=Date.UTC(y,0,1),f=(t-ys)/(Date.UTC(y+1,0,1)-ys);return (ycum[y]+Math.min(Math.max(f,0),1)*yw[y])/wsum*100;};
+  const W=Math.max(980,(box.clientWidth||1000)-12);
+  const mains=events.filter(e=>e.type!=='takedown').sort((a,b)=>P(a.start)-P(b.start));
+  const nthJ={};{let k=0,v=0;for(const e of mains)nthJ[e.id]=e.voluntary?'放假 '+(++v):'第 '+(++k)+' 次进宫';}
+  const maxD=Math.max(30,...mains.map(days));
+  const lanes=[];const TAGW=118/W*100;
+  let pano='',yls='';
+  for(let y=y0;y<=y1;y++){const l=pp(Date.UTC(y,0,1));pano+=`<div class="yrband" style="left:${l}%"><b>${yw[y]>1?y:String(y).slice(2)}</b></div>`;yls+=`<span class="yl${yw[y]>1?'':' q'}" style="left:${l}%">${yw[y]>1?y:"'"+String(y).slice(2)}</span>`;}
+  pano='<div class="sky"></div>'+pano+'<div class="road"></div><div class="ground"></div>'+yls;
+  const HMAX=150, HMIN=46;
+  for(const e of mains){
+    const a=P(e.start), b=endT(e)+DAY, l=pp(a), w=Math.max(pp(b)-pp(a),12/W*100), cx=l+w/2;
+    const h=Math.round(HMIN+(HMAX-HMIN)*Math.sqrt(days(e)/maxD));
+    const cls=e.voluntary?'v':e.confidence==='confirmed'?'c':e.confidence==='inferred'?'i':'p';
+    let lane=lanes.findIndex(r=>r<cx-TAGW/2);if(lane<0){lane=lanes.length;lanes.push(0);}lanes[lane]=cx+TAGW/2;
+    const tagBottom=70+HMAX+18+lane*62;
+    pano+=`<button class="cell ${cls}" data-ev="${e.id}" style="left:${l}%;width:${w}%;height:${h}px" aria-label="${nthJ[e.id]}，${dot(e.start)} 起 ${days(e)} 天"></button>`;
+    pano+=`<span class="stem" style="left:${cx}%;bottom:${70+h}px;height:${tagBottom-70-h}px"></span>`;
+    const tx=Math.min(Math.max(cx,TAGW/2+.6),100-TAGW/2-.6);
+    pano+=`<button class="tag ${cls}" data-ev="${e.id}" style="left:${tx}%;bottom:${tagBottom}px"><span class="n">${nthJ[e.id]}</span><span class="d">${days(e)} 天</span><span class="w">${dot(e.start).slice(0,7)}${e.end?'':' · 至今'}</span></button>`;
+  }
+  for(const e of events.filter(e=>e.type==='takedown'))pano+=`<button class="pin" data-ev="${e.id}" style="left:${pp(P(e.start))}%" title="${dot(e.start)} ${e.affected_episodes.length} 期被祭天" aria-label="${dot(e.start)} 视频被祭天"></button>`;
+  if(TODAY>=pS&&TODAY<pE)pano+=`<i class="now" style="left:${pp(TODAY)}%"></i><canvas class="horse" id="panoHorse" width="84" height="66" style="left:${pp(TODAY)}%" aria-hidden="true"></canvas>`;
+  const ph=70+HMAX+18+lanes.length*62+16;
+  html=`<div class="pano-wrap"><div class="pano-scroll"><div class="pano" style="--ph:${ph}px">${pano}</div></div><div class="pano-hint">← 左右滑动看全景 →</div></div>`+html;
+  box.innerHTML=html;
+  const phc=document.getElementById('panoHorse');if(phc&&typeof sprite==='function'){const c2=phc.getContext('2d');c2.imageSmoothingEnabled=false;sprite(c2,0,4,0,6);}
+  const ps=box.querySelector('.pano-scroll');const toEnd=()=>{if(ps)ps.scrollLeft=ps.scrollWidth;};requestAnimationFrame(toEnd);addEventListener('hashchange',()=>setTimeout(toEnd,50));setTimeout(toEnd,300);
+  box.querySelectorAll('.yr-cards').forEach(g=>g.dataset.ids.split(',').filter(Boolean).forEach(id=>byId[id]&&g.appendChild(byId[id])));
+  const tkBtn=id=>box.querySelector(`[data-tk="${id}"]`);
+  const showTk=(id,force)=>{const b=tkBtn(id),el=byId[id];if(!b||!el)return;const g=b.parentElement.nextElementSibling;const open=force||b.getAttribute('aria-expanded')!=='true';
+    if(open){if(!el.isConnected){const sib=[...g.children].find(c=>P(c.dataset.start)<P(el.dataset.start));g.insertBefore(el,sib||null);}b.setAttribute('aria-expanded','true');}
+    else{el.remove();b.setAttribute('aria-expanded','false');}return open;};
+  window.revealEv=id=>{if(byId[id]&&!byId[id].isConnected)showTk(id,true);return byId[id];};
+  const go=el=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');};
   box.addEventListener('click',ev=>{
-    const tk=ev.target.closest('[data-tk]');
-    if(tk){const c=byId[tk.dataset.tk], g=tk.parentElement.nextElementSibling;
-      if(c.isConnected&&c.parentElement===g){c.remove();tk.setAttribute('aria-expanded','false');}else{g.appendChild(c);tk.setAttribute('aria-expanded','true');}
-      return;}
-    const m=ev.target.closest('[data-more]');
-    if(m){const g=m.previousElementSibling;m.dataset.more.split(',').forEach(id=>byId[id]&&g.appendChild(byId[id]));m.remove();return;}
+    const t=ev.target.closest('[data-tk]');if(t){if(showTk(t.dataset.tk))go(byId[t.dataset.tk]);return;}
     const s=ev.target.closest('[data-ev]');if(!s)return;
-    let el=byId[s.dataset.ev];if(!el)return;
-    if(!el.isConnected){const btn=box.querySelector(`[data-tk="${s.dataset.ev}"]`)||box.querySelector(`[data-more*="${s.dataset.ev}"]`);btn&&btn.click();}
-    el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+    const el=window.revealEv(s.dataset.ev);if(el)go(el);
   });
 })();
 
+if(!events.some(e=>e.voluntary)){const k=document.querySelector('.tlkey .k-v');k&&k.parentElement.remove();}
 /* coin wall */
 const on=new Set(order);
 const fl=document.getElementById('filters');
