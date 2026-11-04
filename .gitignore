@@ -3,3 +3,4 @@ __pycache__/
 logs/
 data/raw/bedtimenews/
 .DS_Store
+logs_*.txt

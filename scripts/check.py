@@ -63,6 +63,11 @@ def main(argv):
     if '--skip-youtube' not in argv:
         yt, ok = fetch_youtube.fetch(limit=100)
         lines.append(f'YouTube {len(yt)} 条' + ('' if ok else '（抓取失败，沿用旧数据）'))
+    # B站 view 接口：新 bvid + 复查 60 个最久没查的（判断是否还在）
+    import dates
+    eps0 = analyze.load('episodes.json', [])
+    ok, n, _ = dates.fill_view([e['bvid'] for e in eps0 if e['bvid'] and e.get('aired', True)], recheck=60)
+    lines.append(f'B站 view 接口：查了 {n} 个，成功 {ok} 个')
     try:
         lines.append(f'蜻蜓FM {len(fetch_podcast.fetch())} 条')
     except Exception as e:

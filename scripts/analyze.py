@@ -108,6 +108,9 @@ def build(now=None):
     for v in yt:
         if v['episode'] is not None and v['channel_name'] in ('睡前消息', '文稿库引用'):
             ytm.setdefault(v['episode'], []).append(v)
+    for k, vs in load('raw/yt_search_mirrors.json', {}).items():  # 粉丝补档（YouTube 搜到、标题期号对得上）
+        ytm.setdefault(float(k), []).extend({'url': v['url'], 'title': v['title'], 'date': None, 'alive': True,
+                                              'channel_name': f"粉丝补档·{v['channel']}"} for v in vs)
     podm = {}
     for v in pod:
         if v['episode'] is not None:
@@ -133,7 +136,7 @@ def build(now=None):
             srcs.append({'kind': 'bilibili', 'url': f'https://www.bilibili.com/video/{bvid}', 'official': True,
                          'alive': alive, 'verified': alive is not None, 'checked_at': checked})
         for y in ys:
-            srcs.append({'kind': 'youtube', 'url': y['url'], 'alive': True, 'verified': True, 'checked_at': checked})
+            srcs.append({'kind': 'youtube', 'url': y['url'], 'alive': y.get('alive', True), 'verified': True, 'checked_at': checked})
         a_yt = (a or {}).get('youtube_id')
         if a_yt and not any(a_yt in y['url'] for y in ys):  # 文稿里嵌的 YouTube，还没抓到确认
             srcs.append({'kind': 'youtube', 'url': f'https://www.youtube.com/watch?v={a_yt}', 'alive': None,
@@ -152,7 +155,7 @@ def build(now=None):
             status = 'live'
         elif alive is None and not (complete and not bvid):
             status = 'unknown'  # B站列表没抓全，无法判断是否还在
-        elif ys or ps:
+        elif any(y.get('alive', True) for y in ys) or ps:
             status = 'mirrored'
         elif a:
             status = 'transcript_only'
@@ -257,7 +260,8 @@ def build(now=None):
         bv = e['bvid']
         fl = vstates.get(bv) if bv else None
         rm = removals.get(bv) if bv else None
-        if n not in banned and not fl and not rm and not (complete and bv and bv not in live_bv):
+        vgone = bv and vraw.get(bv, {}).get('code') in (-404, 62002)
+        if n not in banned and not fl and not rm and not vgone and not (complete and bv and bv not in live_bv):
             continue
         note = banned.get(n, {}).get('note')
         evid = []
@@ -270,6 +274,11 @@ def build(now=None):
                          'date': ts_date(fl[1]['ts'])})
         if n in banned:
             evid.append({'kind': 'community', 'url': 'https://archive.bedtime.news/banned', 'label': '文稿库·下架合集', 'date': None})
+        if vgone:  # 只有“之后”没有“之前”，不够 confirmed
+            v = vraw[bv]
+            evid.append({'kind': 'other', 'url': f'https://api.bilibili.com/x/web-interface/view?bvid={bv}',
+                         'label': f"B站 view 接口返回 {v['code']}（{'稿件不存在' if v['code'] == -404 else '稿件不可见'}）",
+                         'date': (v.get('checked_at') or '')[:10] or None})
         if fl:
             start, end = ts_date(fl[0]['ts']), ts_date(fl[1]['ts'])
             when = f'下架发生在 {start}（最后一次存档在线）到 {end}（第一次存档显示已删）之间。'

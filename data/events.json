@@ -20,7 +20,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -44,7 +44,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -68,7 +68,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -92,18 +92,66 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
+  "voluntary": false
+ },
+ {
+  "id": "ev-takedown-316",
+  "type": "takedown",
+  "confidence": "inferred",
+  "start": "2021-08-20",
+  "end": null,
+  "title": "第316期下架",
+  "reason": null,
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。",
+  "affected_episodes": [
+   316
+  ],
+  "evidence": [
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1cq4y1D7eV",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
+   }
+  ],
+  "detected_by": "auto",
+  "updated_at": "2026-11-04T19:36:04+08:00",
+  "voluntary": false
+ },
+ {
+  "id": "ev-takedown-353",
+  "type": "takedown",
+  "confidence": "inferred",
+  "start": "2021-11-14",
+  "end": null,
+  "title": "第353期下架",
+  "reason": null,
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "affected_episodes": [
+   353
+  ],
+  "evidence": [
+   {
+    "kind": "community",
+    "url": "https://archive.bedtime.news/banned",
+    "label": "文稿库·下架合集",
+    "date": null
+   }
+  ],
+  "detected_by": "auto",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-397",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2022-02-22",
+  "start": "2022-02-23",
   "end": null,
   "title": "第397期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    397
   ],
@@ -116,18 +164,18 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-409",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2022-03-26",
+  "start": "2022-03-22",
   "end": null,
   "title": "第409期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    409
   ],
@@ -140,7 +188,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -151,7 +199,7 @@
   "end": null,
   "title": "第524期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    524
   ],
@@ -164,7 +212,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -188,7 +236,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -199,7 +247,7 @@
   "end": null,
   "title": "第565期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    565
   ],
@@ -212,7 +260,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -236,7 +284,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -261,7 +309,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -269,7 +317,7 @@
   "type": "hiatus",
   "confidence": "inferred",
   "start": "2023-05-30",
-  "end": "2023-09-25",
+  "end": "2023-09-24",
   "title": "第597–645期 暑假停更",
   "reason": "596期后，睡前消息编辑部进入暑假状态，睡前消息暂缓更新。646期后睡前消息恢复更新。",
   "summary": "社区文稿库标注：596期后，睡前消息编辑部进入暑假状态，睡前消息暂缓更新。646期后睡前消息恢复更新。 起止按第596期与第646期的发布日期计。",
@@ -333,7 +381,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": true
  },
  {
@@ -361,21 +409,27 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1gN41137Au",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-silence-2023-11-23",
   "type": "ban",
   "confidence": "confirmed",
-  "start": "2023-11-20",
+  "start": "2023-11-19",
   "end": "2023-12-01",
   "title": "第674–676期 B站账号禁言（接口 silence=1）",
   "reason": "因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。",
-  "summary": "社区文稿库标注：因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。 起止按第672期与第677期的发布日期计。 接口 silence=1 从 2023-11-23 起被观测到，起点取停更前最后一次投稿 2023-11-20。 acc/info 接口在 2023-11-23 至 2023-11-26 的 13 个快照里返回 silence=1。真实开始时间在 2023-11-21 与 2023-11-23 之间，结束时间在 2023-11-26 与 2023-12-01 之间。",
+  "summary": "社区文稿库标注：因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。 起止按第672期与第677期的发布日期计。 同期 YouTube「睡前消息」频道仍发布 1 期睡前消息。 接口 silence=1 从 2023-11-23 起被观测到，起点取停更前最后一次投稿 2023-11-19。 acc/info 接口在 2023-11-23 至 2023-11-26 的 13 个快照里返回 silence=1。真实开始时间在 2023-11-21 与 2023-11-23 之间，结束时间在 2023-11-26 与 2023-12-01 之间。",
   "affected_episodes": [
    674,
    675,
@@ -401,10 +455,16 @@
     "url": "https://archive.bedtime.news/main/601-700",
     "label": "睡前消息文稿库目录页提示",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://www.youtube.com/watch?v=aqPHh8dl9SM",
+    "label": "YouTube 同期更新：【睡前消息672】马督工的老朋友，又少了一批",
+    "date": "2023-11-20"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -432,10 +492,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV15u4y1j7V1",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -620,7 +686,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -641,10 +707,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1yeX6Y4E36",
+    "label": "B站 view 接口返回 62002（稿件不可见）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -665,10 +737,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV13HdBYBEPS",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -696,10 +774,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1Q5EFzmEfi",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -720,10 +804,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1zNTuzxEa5",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -744,21 +834,27 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1rHMtznE2p",
+    "label": "B站 view 接口返回 62002（稿件不可见）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
-  "id": "ev-2025-09",
+  "id": "ev-2025-08",
   "type": "ban",
   "confidence": "inferred",
-  "start": "2025-09-01",
-  "end": "2025-09-20",
+  "start": "2025-08-31",
+  "end": "2025-09-19",
   "title": "第948–953期 B站停更（社区标注）",
   "reason": "因947期原因，马督工B站账号被封15天，无948-953期",
-  "summary": "社区文稿库标注：因947期原因，马督工B站账号被封15天，无948-953期 起止按第946期与第954期的发布日期计。",
+  "summary": "社区文稿库标注：因947期原因，马督工B站账号被封15天，无948-953期 起止按第946期与第954期的发布日期计。 同期 YouTube「睡前消息」频道仍发布 1 期睡前消息。",
   "affected_episodes": [
    948,
    949,
@@ -773,17 +869,23 @@
     "url": "https://archive.bedtime.news/main/901-1000",
     "label": "睡前消息文稿库目录页提示",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://www.youtube.com/watch?v=FH5DeCiTOsY",
+    "label": "YouTube 同期更新：【睡前消息946】“只有峨眉山”亏到关门，王潮歌岳阳接单",
+    "date": "2025-09-01"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-947",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2025-09-03",
+  "start": "2025-09-02",
   "end": null,
   "title": "第947期下架",
   "reason": null,
@@ -797,21 +899,27 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1V2aAzhES8",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-961",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2025-10-13",
+  "start": "2025-10-05",
   "end": null,
   "title": "第961期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    961
   ],
@@ -824,7 +932,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -845,17 +953,23 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1AMWEzPEm4",
+    "label": "B站 view 接口返回 62002（稿件不可见）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-974",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2025-11-07",
+  "start": "2025-11-05",
   "end": null,
   "title": "第974期下架",
   "reason": null,
@@ -872,7 +986,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -900,10 +1014,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1kFbpzXEgV",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -931,10 +1051,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1KYyGBsERj",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -955,21 +1081,27 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1M3AQzmEHe",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-1029",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2026-03-20",
+  "start": "2026-03-15",
   "end": null,
   "title": "第1029期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    1029
   ],
@@ -979,10 +1111,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1yRwuzWE2v",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -1003,10 +1141,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1osVr65EVD",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -1027,10 +1171,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1MAT46rE3R",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": "2026-11-04"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -1058,10 +1208,16 @@
     "url": "https://archive.bedtime.news/banned",
     "label": "文稿库·下架合集",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1fGTC6zELs",
+    "label": "B站 view 接口返回 -404（稿件不存在）",
+    "date": null
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  },
  {
@@ -1136,7 +1292,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T17:31:41+08:00",
+  "updated_at": "2026-11-04T19:36:04+08:00",
   "voluntary": false
  }
 ]
