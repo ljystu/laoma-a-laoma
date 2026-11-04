@@ -19,6 +19,8 @@ jobs:
           python-version: '3.12'
       - run: python -m venv .venv && .venv/bin/pip install -q yt-dlp
       - run: python scripts/check.py
+        env:
+          PYTHONUNBUFFERED: '1'
       - name: commit data
         run: |
           git config user.name 'github-actions[bot]'
