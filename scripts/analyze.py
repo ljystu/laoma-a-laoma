@@ -15,6 +15,7 @@ D = ROOT / 'data'
 BJ = dt.timezone(dt.timedelta(hours=8))
 MID = 316568752
 EP = re.compile(r'【睡前消息\s*(\d{1,4}(?:\.\d)?)】')
+VOLUNTARY_BREAKS = False  # 文稿库说是编辑部自己放的“暑假”要不要单独算（不算进宫）
 
 
 def load(name, default):
@@ -387,10 +388,16 @@ def build(now=None):
             c['voluntary'] = False
             events.remove(o)
 
-    # 5d) voluntary：只有文稿库写明编辑部自己放暑假/放假的才算主动；“被放假”是被罚
+    # 5d) 编号跳过 = 粉丝黑话“放假” = 被封。文稿库写的“暑假/放假”默认也按放假（进宫）算；
+    #     VOLUNTARY_BREAKS 改成 True 就恢复成“编辑部主动放假，不算进宫”
     for e in events:
         r = e.get('reason') or ''
-        e.setdefault('voluntary', bool(e['type'] == 'hiatus' and ('暑假' in r or ('放假' in r and '被放假' not in r))))
+        own = e['type'] == 'hiatus' and ('暑假' in r or ('放假' in r and '被放假' not in r))
+        if own and not VOLUNTARY_BREAKS:
+            e['type'] = 'ban'
+            e['title'] = e['title'].replace('暑假停更', '放假（粉丝称暑假）')
+            e['summary'] += ' 粉丝称暑假/放假；期间编号直接跳过，按放假（被封）计。'
+        e.setdefault('voluntary', bool(own and VOLUNTARY_BREAKS))
 
     # 6) 手工事件：同 id 覆盖自动事件；只有带 before 的证据才算 confirmed
     for m in load('manual_events.json', []):

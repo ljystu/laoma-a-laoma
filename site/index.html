@@ -314,7 +314,7 @@ const safeDays=lastStop?Math.max(0,Math.round((TODAY-P(endS(lastStop)))/DAY)):0;
 const stopDays=stops.reduce((s,e)=>s+days(e),0);
 const byNo=Object.fromEntries(allEps.map(x=>[x.no,x]));
 const confName={confirmed:'实锤',inferred:'疑似',pending:'待查'};
-const stName={live:'还在 B站',mirrored:'有补档',transcript_only:'只剩文稿',lost:'彻底没了',unknown:'还没核对',skipped:'停播（编号跳过）'};
+const stName={live:'还在 B站',mirrored:'有补档',transcript_only:'只剩文稿',lost:'彻底没了',unknown:'还没核对',skipped:'放假期间（编号直接跳过）'};
 const srcName={bilibili:'B站原链',wayback:'Wayback',youtube:'YouTube',podcast:'播客',transcript:'文稿',other:'其他'};
 const evName={snapshot:'快照',wayback:'Wayback',community:'粉丝记录',other:'其他'};
 const order=['live','mirrored','transcript_only','lost','unknown','skipped'];
@@ -323,7 +323,7 @@ const sourcesFor=x=>x.sources||[];
  const ups=Object.entries(up).sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0]));
  document.getElementById('upn').textContent=`${ups.length} 位`;
  document.getElementById('uploaders').innerHTML=ups.map(([k,v])=>`<li>${v.url?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(k)}</a>`:esc(k)}（${v.n} 期）</li>`).join('');}
-const years={};for(const x of allEps.slice().sort((p,q)=>p.no-q.no))(years[x.aired===false?'停播（编号跳过）':x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);
+const years={};for(const x of allEps.slice().sort((p,q)=>p.no-q.no))(years[x.aired===false?'放假期间（编号直接跳过）':x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);
 const yearKeys=Object.keys(years).sort((p,q)=>(/^\d/.test(q)-/^\d/.test(p))||p.localeCompare(q));
 
 const lastAgo=lu.date?Math.round((TODAY-P(lu.date))/DAY):null;
@@ -607,7 +607,7 @@ const on=new Set(order);
 const fl=document.getElementById('filters');
 fl.innerHTML=order.map(k=>`<button aria-pressed="true" data-s="${k}"><span class="coin s-${k}"></span>${stName[k]} <span class="c">${allEps.filter(x=>x.status===k).length}</span></button>`).join('');
 fl.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const k=b.dataset.s;on.has(k)?on.delete(k):on.add(k);b.setAttribute('aria-pressed',on.has(k));document.querySelectorAll('#wall .coin').forEach(c=>c.classList.toggle('dim',!on.has(byNo[c.dataset.no].status)));});
-document.getElementById('wall').innerHTML=yearKeys.map(y=>[y,years[y]]).map(([y,xs])=>`<div class="year"><div class="y">${y}</div><div class="cells">${xs.map(x=>`<button class="coin s-${x.status}" data-no="${x.no}" title="第${x.no}期 · ${x.aired===false?(x.skip_note||'编号跳过，没有播出'):x.date?x.date+(x.date_estimated?'（推算）':''):'日期未知'} · ${stName[x.status]}" aria-label="第${x.no}期 ${stName[x.status]}"></button>`).join('')}</div></div>`).join('');
+document.getElementById('wall').innerHTML=yearKeys.map(y=>[y,years[y]]).map(([y,xs])=>`<div class="year"><div class="y">${y}</div><div class="cells">${xs.map(x=>`<button class="coin s-${x.status}" data-no="${x.no}" title="第${x.no}期 · ${x.aired===false?('这期没播——放假了（编号跳过）'+(x.skip_note?'，'+x.skip_note:'')):x.date?x.date+(x.date_estimated?'（推算）':''):'日期未知'} · ${stName[x.status]}" aria-label="第${x.no}期 ${stName[x.status]}"></button>`).join('')}</div></div>`).join('');
 
 /* drawer */
 const dr=document.getElementById('drawer');
@@ -615,7 +615,7 @@ function openEp(n){
   const x=byNo[n], ev=events.find(e=>e.id===x.event_id);
   dr.innerHTML=`<button class="x" id="dx">关掉</button>
    <div class="no">EP.${x.no}</div><h3>${esc(x.title)||'（标题未知）'}</h3>
-   <dl><dt>发布</dt><dd>${x.aired===false?'没有播出（编号跳过）'+(x.skip_note?` <small>${esc(x.skip_note)}</small>`:''):dot(x.date)+(x.date_estimated?' <small>推算</small>':'')}</dd>
+   <dl><dt>发布</dt><dd>${x.aired===false?'这期没播——放假了（编号跳过）'+(x.skip_note?` <small>${esc(x.skip_note)}</small>`:''):dot(x.date)+(x.date_estimated?' <small>推算</small>':'')}</dd>
    <dt>下落</dt><dd><span class="coin s-${x.status}" style="display:inline-block;vertical-align:-3px;margin-right:6px;cursor:default"></span>${stName[x.status]}</dd>
    ${x.removed_at?`<dt>被吞于</dt><dd>${dot(x.removed_at)}</dd>`:''}
    ${ev?`<dt>哪一关</dt><dd><a href="#timeline" data-goto="${ev.id}">${dot(ev.start).slice(0,7)} ${ev.title}</a></dd>`:''}
