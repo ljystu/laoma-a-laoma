@@ -189,6 +189,39 @@ h2 small{font-family:var(--f-px);font-size:10px;color:var(--muted);margin-left:1
 @media (max-width:520px){.tier{grid-template-columns:1fr}}
 .method ul{margin:0;padding-left:20px} .method li{margin-bottom:6px}
 footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--f-px);font-size:10px;color:var(--muted)}
+
+/* timeline v5：全程大总览 + 加高年条 + 进宫卡片放大 + 祭天收成小条 */
+.overview{margin:18px 0 30px;overflow-x:auto;padding:34px 6px 10px}
+.ov{position:relative;min-width:980px;height:200px;background:var(--paper);border:3px solid var(--edge);border-radius:18px;box-shadow:6px 6px 0 var(--edge)}
+.ov .yr{position:absolute;top:0;bottom:0;border-left:2px dashed var(--fog);padding:0 10px 6px;display:flex;align-items:flex-end;font-family:var(--f-num);font-size:20px;color:var(--muted)}
+.ov .blk{position:absolute;bottom:44px;height:88px;border:3px solid var(--edge);border-radius:10px;cursor:pointer;min-width:16px;box-shadow:3px 3px 0 var(--edge);transition:transform .15s}
+.ov .blk:hover{transform:translateY(-4px)}
+.ov .blk.alt{height:56px}
+.ov .blk.c{background:var(--tomato)}
+.ov .blk.i{background:repeating-linear-gradient(135deg,var(--sun) 0 7px,color-mix(in srgb,var(--sun) 45%,var(--paper)) 7px 12px)}
+.ov .blk.p{background:var(--stone)}
+.ov .lab{position:absolute;z-index:3;bottom:100%;left:-3px;margin-bottom:6px;white-space:nowrap;font-weight:900;font-size:13px;line-height:1.2;color:var(--ink);background:var(--paper);padding:2px 6px;border:2px solid var(--edge);border-radius:6px}
+.ov .blk.r .lab{left:auto;right:-3px}
+.ov .lab b{font-family:var(--f-num);font-size:15px;margin-right:4px}
+.ov .pin{position:absolute;bottom:32px;width:5px;height:12px;margin-left:-2px;background:var(--grape);border-radius:2px;cursor:pointer}
+.ov .now{position:absolute;top:-10px;bottom:-10px;width:3px;background:var(--sky);border-radius:2px}
+.ov .now::after{content:"今天";position:absolute;top:-20px;left:-12px;font-size:12px;font-weight:900;color:var(--sky);white-space:nowrap}
+.strip{height:64px}
+.seg{top:20px;height:28px;font-size:13px}
+.tl-y{font-size:36px}
+.yr-cards{grid-template-columns:1fr!important;gap:22px}
+.ev.big{padding:24px 28px}
+.ev.big h3{font-size:32px}
+.ev.big p{font-size:15px}
+.yr-tk{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.yr-tk>span{font-size:13px;font-weight:900;color:var(--muted);margin-right:4px}
+.yr-tk button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border:2.5px solid var(--edge);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--edge)}
+.yr-tk button[aria-expanded="true"]{background:var(--fog)}
+.yr-tk button i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--grape);margin-right:6px;vertical-align:-1px}
+.yr-tk button.c i{background:var(--tomato)}
+.yr-tk-cards{display:grid;gap:14px;margin-top:12px}
+.ov-hint{display:none;font-size:12px;font-weight:700;color:var(--muted);margin:14px 0 -26px}
+@media (max-width:1000px){.ov-hint{display:block}}
 </style>
 
 <header>
@@ -587,17 +620,32 @@ document.getElementById('events').innerHTML=events.slice().reverse().map((e,i)=>
     const sub=[nb?`进宫 ${nb} 次`:'',nt?`祭天 ${nt} 次`:'',inYear.some(e=>e.voluntary)?'放假':'',carry.length?'接上年':''].filter(Boolean).join(' · ')||'平安无事';
     const main=inYear.filter(e=>e.type!=='takedown').sort((p,q)=>P(q.start)-P(p.start));
     const tks=inYear.filter(e=>e.type==='takedown').sort((p,q)=>P(q.start)-P(p.start));
+    const chips=tks.length?`<div class="yr-tk"><span>被祭天 ${tks.length} 次：</span>${tks.map(e=>`<button data-tk="${e.id}" class="${e.confidence==='confirmed'?'c':''}" aria-expanded="false"><i></i>${dot(e.start).slice(5)} 第${e.affected_episodes.join('、')}期</button>`).join('')}</div><div class="yr-tk-cards"></div>`:'';
     html+=`<div class="tl-year" data-y="${y}"><div class="tl-y">${y}<small>${sub}</small></div><div><div class="strip">${strip}</div>
-      ${main.length||tks.length?`<div class="yr-cards" data-ids="${main.concat(tks.slice(0,2)).map(e=>e.id).join(',')}"></div>${tks.length>2?`<button class="yr-more" data-more="${tks.slice(2).map(e=>e.id).join(',')}">再看 ${tks.length-2} 次祭天 ▾</button>`:''}`:carry.length?`<div class="yr-quiet">${carry.map(e=>`上一年开始的「${e.voluntary?'编辑部放假':jailTitle(e)}」一直持续到 ${evEnd(e)?dot(evEnd(e)).slice(5):'今天'}。<button class="yr-more" data-ev="${e.id}" style="margin:0 0 0 6px">看档案 ↑</button>`).join('<br>')}</div>`:`<div class="yr-quiet">这一年老马一直在外面，正常更新。</div>`}</div></div>`;
+      ${main.length||tks.length?`${main.length?`<div class="yr-cards" data-ids="${main.map(e=>e.id).join(',')}"></div>`:''}${chips}`:carry.length?`<div class="yr-quiet">${carry.map(e=>`上一年开始的「${e.voluntary?'编辑部放假':jailTitle(e)}」一直持续到 ${evEnd(e)?dot(evEnd(e)).slice(5):'今天'}。<button class="yr-more" data-ev="${e.id}" style="margin:0 0 0 6px">看档案 ↑</button>`).join('<br>')}</div>`:`<div class="yr-quiet">这一年老马一直在外面，正常更新。</div>`}</div></div>`;
   }
-  box.innerHTML=html;
-  box.querySelectorAll('.yr-cards').forEach(g=>g.dataset.ids.split(',').filter(Boolean).forEach(id=>byId[id]&&g.appendChild(byId[id])));
+  // 全程总览：每次进宫一块大色块（上面写第几次、几天），祭天是底部小紫条
+  const oS=Date.UTC(y0,0,1), oE=Date.UTC(y1+1,0,1), op=t=>((t-oS)/(oE-oS)*100).toFixed(2);
+  let ov='';
+  for(let y=y0;y<=y1;y++)ov+=`<span class="yr" style="left:${op(Date.UTC(y,0,1))}%">${y}</span>`;
+  events.filter(e=>e.type!=='takedown').forEach((e,k)=>{const a=P(e.start),b=endT(e)+DAY,cls=e.confidence==='confirmed'?'c':e.confidence==='inferred'?'i':'p';
+    ov+=`<button class="blk ${cls}${k%2?' alt':''}${op(a)>85?' r':''}" data-ev="${e.id}" style="left:${op(a)}%;width:${((b-a)/(oE-oS)*100).toFixed(2)}%" title="${dot(e.start)} → ${evEnd(e)?dot(evEnd(e)):'至今'}" aria-label="第${nth[e.id]}次进宫 ${days(e)}天"><span class="lab"><b>#${nth[e.id]}</b>${days(e)} 天</span></button>`;});
+  events.filter(e=>e.type==='takedown').forEach(e=>{ov+=`<i class="pin" data-ev="${e.id}" style="left:${op(P(e.start))}%" title="${dot(e.start)} 第${e.affected_episodes.join('、')}期被祭天"></i>`;});
+  ov+=`<i class="now" style="left:${op(TODAY)}%"></i>`;
+  box.innerHTML=`<div class="ov-hint">← 左右滑动看全程</div><div class="overview"><div class="ov">${ov}</div></div>`+html;
+  {const o=box.querySelector('.overview');  // 手机上先看最近几年：等它真正有宽度再滚到最右
+   new ResizeObserver((_,ob)=>{if(o.clientWidth&&o.scrollWidth>o.clientWidth){o.scrollLeft=o.scrollWidth;ob.disconnect();}}).observe(o);}
+  box.querySelectorAll('.yr-cards').forEach(g=>g.dataset.ids.split(',').filter(Boolean).forEach(id=>{if(byId[id]){byId[id].classList.add('big');g.appendChild(byId[id]);}}));
   box.addEventListener('click',ev=>{
+    const tk=ev.target.closest('[data-tk]');
+    if(tk){const c=byId[tk.dataset.tk], g=tk.parentElement.nextElementSibling;
+      if(c.isConnected&&c.parentElement===g){c.remove();tk.setAttribute('aria-expanded','false');}else{g.appendChild(c);tk.setAttribute('aria-expanded','true');}
+      return;}
     const m=ev.target.closest('[data-more]');
     if(m){const g=m.previousElementSibling;m.dataset.more.split(',').forEach(id=>byId[id]&&g.appendChild(byId[id]));m.remove();return;}
     const s=ev.target.closest('[data-ev]');if(!s)return;
     let el=byId[s.dataset.ev];if(!el)return;
-    if(!el.isConnected){const btn=box.querySelector(`[data-more*="${s.dataset.ev}"]`);btn&&btn.click();}
+    if(!el.isConnected){const btn=box.querySelector(`[data-tk="${s.dataset.ev}"]`)||box.querySelector(`[data-more*="${s.dataset.ev}"]`);btn&&btn.click();}
     el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
   });
 })();
