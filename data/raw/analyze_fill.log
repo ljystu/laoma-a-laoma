@@ -1,0 +1,26 @@
+期号状态: {'unknown': 1064, 'transcript_only': 7, 'mirrored': 22, 'live': 43}
+  ev-takedown-178        takedown inferred  2020-10-09 → None  第178期下架
+  ev-takedown-183        takedown inferred  2020-10-20 → None  第183期下架
+  ev-takedown-551        takedown inferred  2023-02-14 → None  第551期下架
+  ev-2023-05             ban      inferred  2023-05-14 → 2023-05-21  第590–591期 B站停更（社区标注）
+  ev-2023-05-2           hiatus   inferred  2023-05-30 → 2023-09-25  第597–645期 暑假停更
+  ev-takedown-669        takedown confirmed 2023-11-14 → 2023-11-14  第669期下架
+  ev-2023-11             ban      inferred  2023-11-20 → 2023-12-01  第674–676期 B站停更（社区标注）
+  ev-takedown-673        takedown confirmed 2023-11-22 → 2023-11-23  第673期下架
+  ev-silence-2023-11-23  ban      confirmed 2023-11-23 → 2023-12-01  B站账号禁言（接口 silence=1）
+  ev-2023-12             ban      inferred  2023-12-17 → 2024-12-17  第686–841期 B站停更（社区标注）
+  ev-takedown-886        takedown inferred  2025-04-13 → None  第886期下架
+  ev-takedown-899        takedown confirmed 2025-05-13 → 2025-11-01  第899期下架
+  ev-takedown-909        takedown inferred  2025-06-06 → None  第909期下架
+  ev-takedown-913        takedown inferred  2025-06-15 → None  第913期下架
+  ev-2025-09             ban      inferred  2025-09-01 → 2025-09-20  第948–953期 B站停更（社区标注）
+  ev-takedown-961        takedown inferred  2025-10-13 → None  第961期下架
+  ev-takedown-966        takedown inferred  2025-10-18 → None  第966期下架（社区备注：UP主自删）
+  ev-takedown-939        takedown confirmed 2025-11-19 → 2025-12-11  第939期下架
+  ev-takedown-980        takedown confirmed 2025-11-19 → 2025-11-30  第980期下架
+  ev-takedown-1022       takedown inferred  2026-02-27 → None  第1022期下架
+  ev-takedown-1029       takedown inferred  2026-03-20 → None  第1029期下架
+  ev-takedown-1061       takedown inferred  2026-06-03 → None  第1061期下架
+  ev-takedown-1073       takedown inferred  2026-07-04 → None  第1073期下架
+  ev-takedown-1074       takedown confirmed 2026-07-05 → 2026-07-07  第1074期下架
+  ev-2026-07             ban      inferred  2026-07-07 → 2026-10-25  第1076–1121期 B站停更（社区标注）

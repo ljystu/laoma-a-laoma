@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老马今天被封了吗</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1d1d1b;--muted:#6b6b66;--card:#fff;--line:#e4e3dd;--ban:#d64541;--hiatus:#d99a1e;--takedown:#7a4fc9;
+--live:#3a9a5b;--mirrored:#e0b43a;--transcript:#9fb3c8;--lost:#c9c8c2;--unknown:#e9e8e3;--heat0:#ecebe6;--heat:58,154,91}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151514;--fg:#ecebe6;--muted:#9a9993;--card:#1f1f1d;--line:#33332f;
+--lost:#4a4a46;--unknown:#2a2a27;--heat0:#262624;--transcript:#56708a}}
+:root[data-theme=dark]{--bg:#151514;--fg:#ecebe6;--muted:#9a9993;--card:#1f1f1d;--line:#33332f;--lost:#4a4a46;--unknown:#2a2a27;--heat0:#262624;--transcript:#56708a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+main{max-width:980px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:26px;margin:0 0 4px}h2{font-size:18px;margin:40px 0 12px}
+.sub{color:var(--muted);font-size:13px}
+a{color:inherit}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:12px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);margin:6px 0 10px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:4px}
+.tl{position:relative;padding-left:22px}
+.tl:before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--line)}
+.ev{position:relative;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.ev:before{content:"";position:absolute;left:-22px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--c);border:2px solid var(--bg)}
+.ev.ban{--c:var(--ban)}.ev.hiatus{--c:var(--hiatus)}.ev.takedown{--c:var(--takedown)}
+.ev h3{margin:0;font-size:15px}.ev .meta{font-size:12px;color:var(--muted)}
+.ev p{margin:6px 0;font-size:14px}.ev ul{margin:4px 0 0;padding-left:18px;font-size:13px}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:9px;border:1px solid currentColor;margin-left:6px}
+.tag.inferred{color:var(--hiatus)}.tag.confirmed{color:var(--live)}.tag.pending{color:var(--muted)}
+details.tk summary{cursor:pointer;color:var(--muted);font-size:13px}
+.heat{overflow-x:auto;padding-bottom:6px}
+.heat svg{display:block}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:3px}
+.wall button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:3px;font-size:9px;display:flex;align-items:center;justify-content:center;color:#0009;background:var(--s)}
+.wall button:focus-visible{outline:2px solid var(--fg)}
+.s-live{--s:var(--live)}.s-mirrored{--s:var(--mirrored)}.s-transcript_only{--s:var(--transcript)}.s-lost{--s:var(--lost)}.s-unknown{--s:var(--unknown)}
+.wall button.ev-mark{box-shadow:inset 0 0 0 2px var(--ban)}
+#pop{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(520px,calc(100% - 32px));background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 6px 24px #0003;display:none}
+#pop.on{display:block}#pop .x{float:right;cursor:pointer;border:0;background:none;color:var(--muted);font-size:18px}
+.theme{float:right;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;padding:2px 8px;cursor:pointer}
+.err{color:var(--ban)}
+.hero{margin:20px 0 4px;padding:18px 18px 14px;border-radius:14px;background:var(--card);border:2px solid var(--hc,var(--live))}
+.hero.in{--hc:var(--ban)}.hero.maybe{--hc:var(--hiatus)}
+.hero .big{font-size:30px;font-weight:800;line-height:1.25}
+.hero .small{color:var(--muted);font-size:13px;margin-top:6px}
+.ev .no{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted);letter-spacing:.5px}
+.ev .orig{font-size:12px;color:var(--muted)}
+.note{margin-top:28px;padding:12px 14px;border:1px dashed var(--line);border-radius:10px;font-size:13px;color:var(--muted)}
+.note b{color:var(--fg)}
+</style>
+</head>
+<body>
+<main>
+  <button class="theme" id="theme" aria-label="切换深浅色">◐</button>
+  <h1>老马今天被封了吗？</h1>
+  <div class="sub">B站 UP主「马督工」（《睡前消息》）放假记录簿。每 6 小时看一眼督工还在不在。</div>
+  <section class="hero" id="hero" aria-live="polite"></section>
+  <div class="stats" id="stats"></div>
+
+  <h2>案底</h2>
+  <div class="legend"><span><i style="background:var(--ban)"></i>进去了</span><span><i style="background:var(--hiatus)"></i>放假</span><span><i style="background:var(--takedown)"></i>被吞了</span></div>
+  <div class="tl" id="tl"></div>
+
+  <h2>营业日历</h2>
+  <div class="sub">每格一周，越绿当周出的期数越多（日期：B站 &gt; 蜻蜓FM &gt; YouTube）；红框 = 那周在放假。</div>
+  <div class="heat" id="heat"></div>
+
+  <h2>期号墙</h2>
+  <div class="sub">点一格看这期还能去哪看。红框 = 这期和某次放假 / 被吞有关。</div>
+  <div class="legend">
+    <span><i style="background:var(--live)"></i>B站健在</span><span><i style="background:var(--mirrored)"></i>海外有补档</span>
+    <span><i style="background:var(--transcript)"></i>只剩文稿</span><span><i style="background:var(--lost)"></i>查无此期</span><span><i style="background:var(--unknown)"></i>没查到（B站列表抓不全）</span>
+  </div>
+  <div class="wall" id="wall"></div>
+  <div class="note">
+    <b>说正经的：「确认」和「推断」</b><br>
+    没有官方声明可查，只能前后对比。<b>确认</b> = 两份快照（Wayback 存档或本站自己抓的）直接对比出视频没了、或账号禁言状态变了，卡片里有「之前 → 之后」两个链接。
+    <b>推断</b> = 从更新空档、粉丝文稿库的记录推出来的，可能不准。<b>待定</b> = 正在发生，还说不好。
+  </div>
+  <div class="sub" style="margin-top:16px" id="foot"></div>
+</main>
+<div id="pop" role="dialog" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

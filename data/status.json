@@ -1,0 +1,18 @@
+{
+ "schema": 1,
+ "last_check": "2026-11-04T17:31:41+08:00",
+ "check_interval_hours": 6,
+ "account": {
+  "mid": 316568752,
+  "name": null,
+  "silence": null,
+  "sign": null,
+  "follower": 2193945
+ },
+ "last_upload": {
+  "bvid": "BV16u4g6cE3b",
+  "date": "2026-11-03",
+  "episode_no": 1126
+ },
+ "open_event_id": null
+}

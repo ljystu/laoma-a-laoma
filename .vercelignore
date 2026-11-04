@@ -1,0 +1,6 @@
+.github
+scripts
+site-v0
+data/raw
+data/snapshots
+*.md

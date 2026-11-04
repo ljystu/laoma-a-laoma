@@ -1,0 +1,4 @@
+{
+  "redirects": [{ "source": "/", "destination": "/site/", "permanent": false }],
+  "headers": [{ "source": "/data/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }]
+}

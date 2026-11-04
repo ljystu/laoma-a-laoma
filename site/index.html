@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>老马封禁时间线</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Bungee&family=Press+Start+2P&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: A 的贴纸底子（粗边、硬阴影、歪贴的统计）+ C 的像素游戏（小马跑关卡、牢房、金币期号墙、第 N 关）。告示牌 hero → 统计贴纸 → 关卡地图 → 关卡卡片；另有金币墙、规则两页 */
+:root{
+  --bg:#EAF1FF; --paper:#FFFFFF; --ink:#16161D; --edge:#16161D; --muted:#5A5E6E; --fog:#D9DFEC;
+  --sky:#2F6BFF; --tomato:#FF4B2B; --sun:#FFC72C; --grass:#1DB56C; --grape:#8E5BE8; --stone:#A6A9B4;
+  --brick:#D9643A; --scene-top:#BFD6FF; --scene-bot:#E6EFFF; --dirt:#7A4A2A;
+  --f-fun:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;
+  --f-num:"Bungee","Noto Sans SC",Impact,sans-serif;
+  --f-px:"Press Start 2P",ui-monospace,monospace;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14161F; --paper:#1F2231; --ink:#F3F4F8; --edge:#000000; --muted:#A3A8BA; --fog:#2D3142;
+  --sky:#5C8CFF; --tomato:#FF6A4D; --sun:#FFCF4A; --grass:#2CCB7E; --grape:#A47BF2; --stone:#5E6272;
+  --brick:#E0784C; --scene-top:#1B1A3A; --scene-bot:#2B2A5A; --dirt:#4A2E1C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14161F; --paper:#1F2231; --ink:#F3F4F8; --edge:#000000; --muted:#A3A8BA; --fog:#2D3142;
+  --sky:#5C8CFF; --tomato:#FF6A4D; --sun:#FFCF4A; --grass:#2CCB7E; --grape:#A47BF2; --stone:#5E6272;
+  --brick:#E0784C; --scene-top:#1B1A3A; --scene-bot:#2B2A5A; --dirt:#4A2E1C; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;
+  background-image:radial-gradient(color-mix(in srgb,var(--sky) 14%,transparent) 1.2px,transparent 1.2px);background-size:22px 22px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+.sticker{background:var(--paper);border:2.5px solid var(--edge);border-radius:16px;box-shadow:5px 5px 0 var(--edge)}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+
+.sample{background:var(--sun);color:#16161D;font-size:13px;font-weight:700;text-align:center;padding-block:6px;border-bottom:2.5px solid var(--edge)}
+.hd{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--f-fun);font-weight:400;font-size:26px;line-height:1}
+.seal{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--tomato);color:#fff;font-family:var(--f-fun);font-size:24px;border:2.5px solid var(--edge);transform:rotate(-8deg)}
+.hud{display:flex;gap:14px;font-family:var(--f-px);font-size:10px;color:var(--muted)}
+.hud b{color:var(--ink);font-weight:400}
+nav{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:700;font-size:14px;padding:6px 14px;border:2.5px solid var(--edge);border-radius:999px;background:var(--paper);box-shadow:3px 3px 0 var(--edge);transition:transform .12s,box-shadow .12s}
+nav a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--edge)}
+nav a[aria-current="page"]{background:var(--sky);color:#fff}
+@media (max-width:760px){.hud{display:none}}
+
+main{padding-block:6px 72px}
+section.view{display:none} section.view.on{display:block}
+
+.board{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);overflow:hidden;margin-top:6px}
+.board .l{padding:18px 24px;background:var(--grass);color:#fff;border-right:2.5px solid var(--edge);position:relative;overflow:hidden}
+.board .q{font-family:var(--f-fun);font-size:20px}
+.board .big{display:flex;align-items:flex-end;flex-wrap:wrap;gap:6px 14px;margin-top:6px}
+.board .yes{font-family:var(--f-fun);font-size:56px;line-height:1;text-shadow:4px 4px 0 var(--edge)}
+.board .sub{font-size:15px;font-weight:700;padding-bottom:10px}
+.counter{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px;font-weight:700;font-size:15px;position:relative;z-index:1}
+.flip{display:inline-flex;gap:4px}
+.flip span{font-family:var(--f-num);font-size:34px;line-height:1;background:#16161D;color:#FFC72C;padding:8px 8px 6px;border-radius:8px;border:2px solid var(--edge);min-width:1.1em;text-align:center}
+#heroHorse{position:absolute;right:24px;bottom:18px;image-rendering:pixelated}
+.board .r{padding:14px 22px;display:grid;gap:10px;align-content:center;background:var(--paper)}
+.board .r .row{display:flex;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--fog);padding-bottom:8px;font-size:14px}
+.board .r .row:last-child{border-bottom:0}
+.board .r b{font-weight:900}
+@media (max-width:720px){.board{grid-template-columns:1fr}.board .l{border-right:0;border-bottom:2.5px solid var(--edge)}.board .yes{font-size:58px}#heroHorse{right:14px;bottom:auto;top:20px}}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.stat{padding:8px 14px;transition:transform .15s;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.stat:nth-child(1){background:var(--tomato);color:#fff;transform:rotate(-1.5deg)}
+.stat:nth-child(2){background:var(--sun);color:#16161D;transform:rotate(1deg)}
+.stat:nth-child(3){background:var(--grape);color:#fff;transform:rotate(-.8deg)}
+.stat:nth-child(4){background:var(--sky);color:#fff;transform:rotate(1.4deg)}
+.stat:hover{transform:rotate(0) scale(1.03)}
+.stat .n{font-family:var(--f-num);font-size:24px;line-height:1.05}
+.stat .l{font-weight:700;font-size:13px}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat .n{font-size:26px}}
+
+h2{font-family:var(--f-fun);font-weight:400;font-size:30px;line-height:1.2;margin:44px 0 6px;text-wrap:balance}
+h2 mark{background:linear-gradient(transparent 55%,var(--sun) 55%);color:inherit;padding:0 2px}
+h2 small{font-family:var(--f-px);font-size:10px;color:var(--muted);margin-left:10px;vertical-align:4px}
+.lede{color:var(--muted);max-width:62ch;margin:0 0 16px}
+
+.level{padding:10px;overflow:hidden}
+.scroll{overflow-x:auto;border-radius:10px}
+#lv{display:block;image-rendering:pixelated;cursor:pointer}
+.bar{position:relative;height:22px;margin:10px 4px 0;border:2.5px solid var(--edge);border-radius:999px;background:var(--fog);cursor:pointer;overflow:hidden}
+.bar #barFill{position:absolute;inset:0 auto 0 0;background:var(--sky);width:0}
+.bar .j{position:absolute;top:0;bottom:0;background:var(--tomato)} .bar .j.s{background:var(--sun)}
+.bar #barHorse{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#C9824A;border:2px solid var(--edge);z-index:2}
+.bar #barYears{position:absolute;inset:0;display:flex;font-family:var(--f-px);font-size:8px;line-height:18px;color:var(--ink);pointer-events:none;z-index:1}
+.bar #barYears span{position:absolute;transform:translateX(-50%);mix-blend-mode:normal}
+.pad{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 4px 2px}
+.key{font:inherit;font-weight:900;font-size:16px;min-width:48px;padding:8px 14px;border:2.5px solid var(--edge);border-radius:12px;background:var(--paper);color:var(--ink);box-shadow:3px 3px 0 var(--edge);cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.key:active,.key.on{transform:translate(3px,3px);box-shadow:none}
+.key.big{background:var(--sun);color:#16161D}
+.key.tog{font-size:13px}
+.key.tog[aria-pressed="true"]{background:var(--sky);color:#fff}
+.tip{font-size:12px;color:var(--muted);margin-left:auto}
+.note{min-height:24px;font-size:14px;font-weight:700;margin:8px 4px 0}
+.note a{color:var(--sky)}
+@media (max-width:640px){.tip{display:none}.pad{display:grid;grid-template-columns:1fr 2fr 1fr;}.pad .tog{grid-column:span 1}.pad #kAuto{grid-column:1 / span 2}.key{min-width:0;white-space:nowrap;padding:10px 6px}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;font-weight:700;margin:10px 4px 2px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:14px;border:2px solid var(--edge)}
+
+.events{display:grid;gap:8px;margin-top:14px}
+.tlkey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;font-weight:700;margin:0 0 6px}
+.tlkey span{display:inline-flex;align-items:center;gap:6px}
+.tlkey i{display:inline-block;width:18px;height:12px;border:2px solid var(--edge);border-radius:3px}
+.k-c,.seg.c{background:var(--tomato)} .k-i,.seg.i{background:repeating-linear-gradient(135deg,var(--sun) 0 5px,color-mix(in srgb,var(--sun) 45%,var(--paper)) 5px 8px)} .k-p,.seg.p{background:var(--stone)}
+.k-v,.seg.v{background:repeating-linear-gradient(90deg,#7FB8E6 0 6px,#BFE0F7 6px 12px)} .k-t{background:var(--grape)} .k-u{background:var(--sun);height:4px!important;border-width:1px!important}
+.tl-year{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;padding-block:14px;border-top:2.5px dashed var(--fog)}
+.tl-year:first-child{border-top:0}
+.tl-y{font-family:var(--f-num);font-size:26px;line-height:1;padding-top:8px}
+.tl-y small{display:block;font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--muted);margin-top:6px;line-height:1.4}
+.strip{position:relative;height:46px;background:var(--paper);border:2.5px solid var(--edge);border-radius:10px;box-shadow:3px 3px 0 var(--edge);overflow:visible}
+.strip .mo{position:absolute;top:0;bottom:0;border-left:1px dashed var(--fog);font-size:10px;color:var(--muted);padding:1px 3px;font-family:var(--f-px)}
+.strip .tick{position:absolute;bottom:4px;width:2px;height:8px;background:var(--sun);border-radius:1px}
+.strip .tick.est{background:var(--stone);opacity:.6}
+.seg{position:absolute;top:14px;height:20px;border:2px solid var(--edge);border-radius:5px;cursor:pointer;min-width:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;transition:transform .12s}
+.seg:hover{transform:translateY(-2px)}
+.seg.i,.seg.v{color:#16161D}
+.flag{position:absolute;top:-12px;width:16px;height:16px;margin-left:-8px;border:2px solid var(--edge);border-radius:4px 4px 4px 0;background:var(--grape);cursor:pointer;color:#fff;font-size:9px;line-height:12px;text-align:center;font-family:var(--f-fun);padding:0}
+.flag:hover{transform:scale(1.2)}
+.nowpin{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--sky);border-radius:2px}
+.nowpin::after{content:"今天";position:absolute;top:-18px;left:-12px;font-size:11px;font-weight:900;color:var(--sky);white-space:nowrap}
+.yr-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:16px}
+.yr-quiet{font-size:13px;color:var(--muted);margin-top:10px;font-weight:700}
+.yr-more{font:inherit;font-size:13px;font-weight:700;margin-top:12px;background:none;border:0;color:var(--sky);cursor:pointer;padding:0}
+.ev.takedown{grid-template-columns:44px minmax(0,1fr);padding:12px 16px}
+.ev.takedown .face{width:44px;height:44px;font-size:11px;background:var(--grape)}
+.ev.takedown h3{font-size:18px}
+.ev.voluntary .face{background:#7FB8E6;color:#16161D}
+@media (max-width:760px){.yr-cards{grid-template-columns:1fr}.tl-year{grid-template-columns:1fr;gap:8px}.tl-y{padding-top:0}.tl-y small{display:inline;margin-left:8px}}
+.ev{padding:18px 20px;scroll-margin-top:20px;transition:transform .15s,box-shadow .15s;position:relative;display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px}
+.ev:nth-child(odd){transform:rotate(-.6deg)} .ev:nth-child(even){transform:rotate(.6deg)}
+.ev:hover{transform:rotate(0) translate(-2px,-2px);box-shadow:7px 7px 0 var(--edge)}
+.ev.flash{animation:wiggle .5s 2}
+@keyframes wiggle{25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+.face{width:64px;height:64px;border:3px solid var(--edge);border-radius:6px;display:grid;place-items:center;font-family:var(--f-px);font-size:14px;color:#fff}
+.confirmed .face{background:var(--tomato)} .inferred .face{background:var(--sun);color:#16161D} .pending .face{background:var(--stone)}
+.ev .lv{font-family:var(--f-px);font-size:10px;color:var(--muted)}
+.ev h3{font-family:var(--f-fun);font-weight:400;font-size:24px;margin:4px 0 4px;line-height:1.2}
+.ev .when{font-weight:700;font-size:13px;margin-bottom:8px}
+.ev p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.stamp{position:absolute;top:-12px;right:18px;font-size:12px;font-weight:900;padding:2px 10px;border:2px solid var(--edge);border-radius:999px;transform:rotate(4deg)}
+.stamp.confirmed{background:var(--tomato);color:#fff} .stamp.inferred{background:var(--sun);color:#16161D} .stamp.pending{background:var(--fog);color:var(--ink)}
+.minis{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.evid{display:flex;flex-wrap:wrap;gap:6px}
+.evid a{font-size:12px;font-weight:700;text-decoration:none;padding:2px 10px;border-radius:999px;background:var(--fog)}
+.evid a:hover{background:var(--sun);color:#16161D}
+
+@media (max-width:420px){.ev{grid-template-columns:1fr}}
+
+/* coins */
+.coin{width:16px;height:16px;border:0;padding:0;cursor:pointer;border-radius:3px;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3),inset 3px 3px 0 rgba(255,255,255,.45);transition:transform .12s}
+.coin:hover{transform:translateY(-4px) scale(1.2)}
+.coin.dim{opacity:.1}
+.s-live{background:var(--sun)} .s-mirrored{background:var(--grass)} .s-transcript_only{background:var(--grape)} .s-lost{background:transparent;box-shadow:inset 0 0 0 2px var(--stone)!important} .s-unknown{background:var(--stone)} .s-skipped{background:transparent;box-shadow:inset 0 0 0 2px var(--stone)!important;opacity:.35}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.filters button{font:inherit;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;background:var(--paper);color:var(--ink);border:2.5px solid var(--edge);border-radius:999px;padding:5px 14px;cursor:pointer;box-shadow:3px 3px 0 var(--edge);transition:transform .12s,opacity .12s}
+.filters button[aria-pressed="false"]{opacity:.4;box-shadow:none;transform:translate(3px,3px)}
+.filters .coin{pointer-events:none;width:14px;height:14px}
+.filters .c{font-family:var(--f-px);font-size:10px}
+.wall{padding:8px 18px}
+.year{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;padding-block:12px;border-top:2px dashed var(--fog)}
+.year:first-child{border-top:0}
+.year .y{font-family:var(--f-px);font-size:11px;padding-top:3px}
+.cells{display:flex;flex-wrap:wrap;gap:4px}
+
+.drawer{box-sizing:border-box;position:fixed;right:max(12px,env(safe-area-inset-right,0px));top:calc(12px + env(safe-area-inset-top,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 24px));padding:20px;overflow-y:auto;z-index:20}
+@media (prefers-reduced-motion:no-preference){.drawer:not([hidden]){animation:pop .22s ease-out}}
+@keyframes pop{from{transform:translateX(30px) rotate(2deg);opacity:0}}
+.drawer .x{float:right;font:inherit;font-weight:700;background:var(--sun);color:#16161D;border:2.5px solid var(--edge);border-radius:999px;padding:2px 12px;cursor:pointer}
+.drawer .no{font-family:var(--f-px);font-size:16px;color:var(--sky)}
+.drawer h3{font-family:var(--f-fun);font-weight:400;font-size:22px;margin:10px 0 12px;line-height:1.3}
+.drawer dl{display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px 12px;font-size:14px;margin:0 0 16px}
+.drawer dt{color:var(--muted)} .drawer dd{margin:0;font-weight:500}
+.src{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;margin-top:8px;border:2px solid var(--edge);border-radius:12px;font-size:14px}
+.src .k{font-weight:700;font-size:13px}
+.src a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ok,.dead,.unv{font-family:var(--f-px);font-size:9px;padding:3px 6px;border-radius:4px}
+.ok{background:var(--grass);color:#fff} .dead{background:var(--tomato);color:#fff} .unv{background:var(--sun);color:#16161D}
+
+.method{display:grid;gap:18px;max-width:780px}
+.tiers{display:grid;gap:14px}
+.tier{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;padding:14px 18px}
+.tier .t{font-family:var(--f-fun);font-size:24px;text-align:center;padding:6px 0;border-radius:12px;border:2.5px solid var(--edge)}
+.tier p{margin:0;font-size:14px}
+.tier p b{display:block;font-size:15px;margin-bottom:2px}
+@media (max-width:520px){.tier{grid-template-columns:1fr}}
+.method ul{margin:0;padding-left:20px} .method li{margin-bottom:6px}
+footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--f-px);font-size:10px;color:var(--muted)}
+</style>
+
+<header>
+  <div class="wrap hd">
+    <h1 class="brand"><span class="seal">马</span>老马封禁时间线</h1>
+    <div class="hud" id="hud"></div>
+    <nav>
+      <a href="#timeline" data-v="timeline">时间线</a>
+      <a href="#game" data-v="game">越狱小游戏</a>
+      <a href="#coins" data-v="coins">金币墙</a>
+      <a href="#rules" data-v="rules">怎么算的</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-timeline">
+    <div class="board sticker" id="board"></div>
+    <div class="stats" id="stats"></div>
+
+    <h2>老马的<mark>入狱时间线</mark><small id="tlspan"></small></h2>
+    <p class="lede">一年一行，从今年往回翻。每行是 1 到 12 月，条越长关得越久；红色是实锤，黄色是疑似，灰色是待查，蓝色沙滩是编辑部自己放假。紫色小旗是那天有视频被拿去祭天。点条或小旗跳到对应的档案卡片。</p>
+    <div class="tlkey">
+      <span><i class="k-c"></i>实锤进宫</span><span><i class="k-i"></i>疑似进宫</span><span><i class="k-p"></i>待查</span><span><i class="k-v"></i>编辑部放假</span><span><i class="k-t"></i>视频被祭天</span><span><i class="k-u"></i>正常更新</span>
+    </div>
+    <div class="events" id="events"></div>
+  </section>
+
+  <section class="view" id="v-game">
+    <h2>老马<mark>越狱大冒险</mark><small id="span"></small></h2>
+    <p class="lede">从第 1 期跑到今天。路上每枚金币是一期视频，一路吃过去；撞进红色牢房就被关，得连按“越狱”才出得来；紫色的坑是视频被吞的日子，记得跳过去。不想玩就开“自动跑”看它自己闯。</p>
+    <div class="level sticker" id="game">
+      <div class="scroll"><canvas id="lv" height="250" tabindex="0" aria-label="越狱小游戏：沿时间线操控小马，吃金币、越狱、跳坑"></canvas></div>
+      <div class="bar" id="bar" aria-label="时间线进度，点一下跳到那一年"><i id="barFill"></i><b id="barHorse"></b><span id="barYears"></span></div>
+      <div class="pad">
+        <button class="key" id="kL" aria-label="往回走">◀</button>
+        <button class="key big" id="kJ">跳 / 越狱</button>
+        <button class="key" id="kR" aria-label="往前走">▶</button>
+        <button class="key tog" id="kAuto" aria-pressed="true">自动跑</button>
+        <button class="key tog" id="kReset">从头再来</button>
+        <span class="tip">键盘：← → 移动，空格跳 / 越狱</span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--sun)"></i>金币：还在 B站</span>
+        <span><i style="background:var(--grass)"></i>有补档</span>
+        <span><i style="background:var(--grape)"></i>只剩文稿</span>
+        <span><i style="background:transparent"></i>查无此期</span>
+        <span><i style="background:var(--tomato)"></i>牢房（实锤）</span>
+        <span><i style="background:var(--sun)"></i>牢房（疑似）</span>
+        <span><i style="background:var(--stone)"></i>日期还没捞到</span>
+        <span><i style="background:#000"></i>被吞的坑</span>
+      </div>
+      <div class="note" id="note" aria-live="polite"></div>
+    </div>
+
+  </section>
+
+  <section class="view" id="v-coins">
+    <h2><mark>金币墙</mark><small>每期一枚</small></h2>
+    <p class="lede">金币是还健在的，绿的被吞了但有人提前存了档，紫的只剩文字版，空框是彻底查无此期。点一枚看这期流落何方。</p>
+    <div class="filters" id="filters"></div>
+    <div class="wall sticker" id="wall"></div>
+  </section>
+
+  <section class="view" id="v-rules">
+    <h2>游戏<mark>规则</mark></h2>
+    <div class="method">
+      <p class="lede" style="margin:0">老马不会告诉你他进去了，平台更不会。所以本站只认快照：上次还在、这次没了，就算抓到现行。</p>
+      <div class="tiers">
+        <div class="tier sticker"><div class="t" style="background:var(--tomato);color:#fff">实锤</div><p><b>前后快照对比，直接看到变化</b>上次还在的视频这次没了，或者账号从正常变成禁言。快照来自每 6 小时一次的巡逻，或者 Wayback 的历史存档。</p></div>
+        <div class="tier sticker"><div class="t" style="background:var(--sun);color:#16161D">疑似</div><p><b>人突然没了，但没抓到现行</b>两次投稿间隔超过平时的 3 倍，但没有前后快照可以对比。</p></div>
+        <div class="tier sticker"><div class="t" style="background:var(--fog)">待查</div><p><b>探监机器人刚发现不对劲</b>核对完再升级或撤掉。</p></div>
+      </div>
+      <h2 style="font-size:24px;margin-top:20px">数据从哪来</h2>
+      <ul>
+        <li>B站空间投稿列表和账号状态，每 6 小时抓一次并存档</li>
+        <li>Wayback Machine 的历史快照，找回被删视频的标题和消失时间</li>
+        <li>YouTube 官方频道和粉丝补档、小宇宙等播客、粉丝整理的文稿</li>
+        <li>当时的讨论帖和截图只作补充，单靠它们不算实锤</li>
+      </ul>
+      <p class="lede">发现错漏？在 GitHub 上改 JSON 提 PR，或者开 Issue 附上存档链接。</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>每 6 小时探一次监</span><span>DATA: STATUS · EPISODES · EVENTS</span><span>捞到补档？去 GitHub 投喂</span></div></footer>
+<aside class="drawer sticker" id="drawer" hidden aria-live="polite"></aside>
+
+<script>
+(async function(){
+/* 真实数据：读 ../data/ 下三个文件 */
+const DAY=864e5;
+const P=s=>Date.parse(s+'T00:00:00Z');
+const F=t=>new Date(t).toISOString().slice(0,10);
+const dot=s=>s?s.replace(/-/g,'.'):'?';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const J=u=>fetch(u,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json();});
+let status,allEps,events;
+const BASES=['../data/','data/','./site/data/','/data/'];
+async function loadAll(){let last;for(const b of BASES){try{return await Promise.all([J(b+'status.json'),J(b+'episodes.json'),J(b+'events.json')]);}catch(e){last=e;}}throw last;}
+try{[status,allEps,events]=await loadAll();}
+catch(err){document.getElementById('board').innerHTML=`<div class="l" style="grid-column:1/-1"><div class="q">数据加载失败</div><p>${esc(err.message)}。找不到 data/ 下的 status.json、episodes.json、events.json：如果是直接双击打开的网页，请改用本地服务器打开；如果已经部署，请确认 data 文件夹和网页一起发布了。</p></div>`;return;}
+const TODAY_S=new Date(Date.now()+8*3600e3).toISOString().slice(0,10), TODAY=P(TODAY_S);
+const endS=e=>e.end||TODAY_S;
+events=events.map(e=>({...e,evidence:e.evidence||[],affected_episodes:e.affected_episodes||[]})).sort((x,y)=>P(x.start)-P(y.start));
+const episodes=allEps.filter(x=>x.date).sort((x,y)=>P(x.date)-P(y.date));
+const T0=episodes.length?P(episodes[0].date):TODAY, END=Math.max(TODAY,...events.map(e=>P(endS(e))));
+document.getElementById('span').textContent=`${new Date(T0).getUTCFullYear()} → ${new Date(END).getUTCFullYear()}`;
+const lu=status.last_upload||{}, luNo=lu.episode_no??lu.no??'?';
+const openEv=events.find(e=>e.id===status.open_event_id)||events.find(e=>!e.end&&e.type!=='takedown'&&!e.voluntary);
+const silence=status.account?.silence;
+const days=e=>Math.round((P(endS(e))-P(e.start))/DAY)+1;
+const stops=events.filter(e=>e.type!=='takedown'&&!e.voluntary);
+const gone=allEps.filter(x=>x.status!=='live'&&x.status!=='unknown'&&x.status!=='skipped');
+const found=gone.filter(x=>x.status==='mirrored');
+const lastStop=stops[stops.length-1];
+const safeDays=lastStop?Math.max(0,Math.round((TODAY-P(endS(lastStop)))/DAY)):0;
+const stopDays=stops.reduce((s,e)=>s+days(e),0);
+const byNo=Object.fromEntries(allEps.map(x=>[x.no,x]));
+const confName={confirmed:'实锤',inferred:'疑似',pending:'待查'};
+const stName={live:'还在 B站',mirrored:'有补档',transcript_only:'只剩文稿',lost:'彻底没了',unknown:'还没核对',skipped:'停播（编号跳过）'};
+const srcName={bilibili:'B站原链',wayback:'Wayback',youtube:'YouTube',podcast:'播客',transcript:'文稿',other:'其他'};
+const evName={snapshot:'快照',wayback:'Wayback',community:'粉丝记录',other:'其他'};
+const order=['live','mirrored','transcript_only','lost','unknown','skipped'];
+const sourcesFor=x=>x.sources||[];
+const years={};for(const x of allEps.slice().sort((p,q)=>p.no-q.no))(years[x.aired===false?'停播（编号跳过）':x.date?x.date.slice(0,4):'日期未知']??=[]).push(x);
+const yearKeys=Object.keys(years).sort((p,q)=>(/^\d/.test(q)-/^\d/.test(p))||p.localeCompare(q));
+
+const lastAgo=lu.date?Math.round((TODAY-P(lu.date))/DAY):null;
+
+/* pixel horse */
+const HORSE=[
+ "...........mm.",
+ "..........bbbb",
+ ".........mbbwb",
+ "........mbbb..",
+ "tt.....mbbb...",
+ ".tbbbbbbbbb...",
+ "..bbbbbbbbb...",
+ "..bbbbbbbbb...",
+ "..bb.....bb..."];
+const LEGA=["..b.b...b.b...",".b...b.b...b.."], LEGB=["..bb.....bb...","..b.b...b.b..."];
+const PAL={b:'#C9824A',m:'#3B2414',t:'#3B2414',w:'#FFFFFF'};
+function sprite(ctx,x,y,frame,s){
+  HORSE.concat(frame?LEGB:LEGA).forEach((r,j)=>[...r].forEach((ch,i)=>{if(ch==='.')return;ctx.fillStyle=PAL[ch];ctx.fillRect(Math.round(x+i*s),Math.round(y+j*s),s,s);}));
+}
+
+/* header hud + hero */
+document.getElementById('hud').innerHTML=`<span>EP <b>${luNo}</b></span><span>坐牢 <b>×${stops.length}</b></span>`;
+const digits=String(safeDays).padStart(3,'0').split('').map(d=>`<span>${d}</span>`).join('');
+const fmtT=t=>{const d=new Date(Date.parse(t)+8*3600e3);return `${d.toISOString().slice(5,10).replace('-','.')} ${d.toISOString().slice(11,16)}`;};
+const inside=!!openEv||silence===1;
+const ans=inside?'进去了！':silence===0?'还没！':'应该还没';
+const sub=inside?(openEv?`${confName[openEv.confidence]||'疑似'} · 已经关了 ${days(openEv)} 天`:'账号显示禁言中')
+  :`${silence===0?'账号正常':'账号状态没查到（B站风控）'} · 第 ${luNo} 期${lastAgo!=null?` ${lastAgo} 天前刚更`:''}`;
+const ctr=inside&&openEv?`这次已经蹲了 <span class="flip" aria-label="${days(openEv)} 天">${String(days(openEv)).padStart(3,'0').split('').map(d=>`<span>${d}</span>`).join('')}</span> 天`
+  :lastStop?`距离上次出来已经 <span class="flip" aria-label="${safeDays} 天">${digits}</span> 天`:'还没有记录';
+if(inside)document.querySelector('.board')?.style.setProperty('--grass','var(--tomato)');
+const nextT=status.last_check?new Date(Date.parse(status.last_check)+(status.check_interval_hours||6)*3600e3).toISOString():null;
+document.getElementById('board').innerHTML=`
+  <div class="l">
+    <div class="q">老马今天进去了吗？</div>
+    <div class="big"><span class="yes">${ans}</span><span class="sub">${sub}</span></div>
+    <div class="counter">${ctr}</div>
+    <canvas id="heroHorse" width="84" height="66" aria-hidden="true"></canvas>
+  </div>
+  <div class="r">
+    <div class="row"><span>上次进去</span><b>${lastStop?dot(lastStop.start):'—'}</b></div>
+    <div class="row"><span>蹲了多久</span><b>${lastStop?`${days(lastStop)} 天${lastStop.end?'':'（还没出来）'} · ${confName[lastStop.confidence]}`:'—'}</b></div>
+    <div class="row"><span>上次探监</span><b>${status.last_check?fmtT(status.last_check):'—'}</b></div>
+    <div class="row"><span>下次探监</span><b>${nextT?fmtT(nextT):'—'}</b></div>
+  </div>`;
+const hh=document.getElementById('heroHorse').getContext('2d');
+let hf=0;
+function heroTick(){hh.clearRect(0,0,84,66);sprite(hh,0,(hf?0:4),hf,6);}
+heroTick();
+if(!reduce)setInterval(()=>{hf^=1;heroTick();},260);
+
+document.getElementById('stats').innerHTML=[
+ [stops.length,'次喜提小黑屋'],[stopDays,'天被迫休假'],[gone.length,'期视频人间蒸发'],[gone.length?Math.round(found.length/gone.length*100)+'%':'—','被网友捞了回来']
+].map(([n,l])=>`<div class="stat sticker"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+
+/* level map：越狱小游戏，沿时间线跑 */
+const cv=document.getElementById('lv'), ctx=cv.getContext('2d');
+const evEnd=e=>endS(e);
+const months=[];{const d=new Date(T0);d.setUTCDate(1);while(d.getTime()<=END){months.push(d.getTime());d.setUTCMonth(d.getUTCMonth()+1);}}
+const mc=months.map((m,i)=>episodes.filter(x=>{const t=P(x.date);return t>=m&&t<(months[i+1]||Infinity);}).length);
+let C={},W=0,raf=0,G=null,auto=!reduce,active=false,lastT=0;const ground=200,COLW=96,keys={L:false,R:false};
+const worldW=months.length*COLW+200;
+const X=t=>100+(t-T0)/(END-T0)*(worldW-200);
+const Tof=x=>T0+Math.max(0,Math.min(1,(x-100)/(worldW-200)))*(END-T0);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const vacs=events.filter(e=>e.voluntary&&e.type!=='takedown').map(e=>({e,x0:X(P(e.start)),x1:X(P(evEnd(e))+DAY)}));
+const jails=events.filter(e=>e.type!=='takedown'&&!e.voluntary).map(e=>{const x0=X(P(e.start));return {e,x0,x1:Math.max(X(P(evEnd(e))+DAY),x0+48),need:Math.max(3,Math.ceil(days(e)/6))};});
+const pits=events.filter(e=>e.type==='takedown').map(e=>{const x=X(P(e.start));return {e,x0:x-24,x1:x+24};});
+const coins=episodes.map((x,i)=>({x:X(P(x.date)),y:ground-70-(i%3)*12,ep:x,got:false,i}));
+const ALL=(typeof allEps!=='undefined'?allEps:episodes).slice().sort((a,b)=>a.no-b.no);
+const datedAll=ALL.filter(x=>x.date);
+function estT(x){let lo=null,hi=null;for(const d of datedAll){if(d.no<x.no)lo=d;else if(d.no>x.no){hi=d;break;}}
+  if(lo&&hi)return P(lo.date)+(x.no-lo.no)/(hi.no-lo.no)*(P(hi.date)-P(lo.date));return clamp(lo?P(lo.date):hi?P(hi.date):T0,T0,END);}
+const undated=ALL.filter(x=>!x.date&&x.aired!==false).map(x=>({ep:x,t:estT(x)}));
+const mcEst=months.map((m,i)=>undated.filter(u=>u.t>=m&&u.t<(months[i+1]||Infinity)).length);
+undated.forEach((u,k)=>coins.push({x:X(u.t),y:ground-70-(k%3)*12,ep:u.ep,got:false,i:k,est:true}));
+const collectable=coins.filter(c=>c.ep.status!=='lost').length;
+const byX=coins.slice().sort((a,b)=>a.x-b.x);
+function coinAt(x){let lo=0,hi=byX.length-1,r=null;while(lo<=hi){const m=(lo+hi)>>1;if(byX[m].x<=x){r=byX[m];lo=m+1;}else hi=m-1;}return r;}
+const jailTitle=e=>e.confidence==='confirmed'?'喜提小黑屋':e.confidence==='inferred'?'疑似又进去了':'突然失联';
+const noteEl=document.getElementById('note');
+const note=h=>{noteEl.innerHTML=h;};
+function reset(){
+  G={x:40,h:0,vh:0,dir:1,frame:0,acc:0,jail:null,mash:0,freed:new Set(),fall:0,respawn:0,got:0,pops:[],done:false,shake:0,lostSeen:new Set(),autoT:0};
+  coins.forEach(c=>c.got=false);
+  note(auto?'自动跑中。按 ◀ ▶ 或方向键就换你来操控。':'按 ▶ 或 → 出发。');
+}
+function readColors(){const cs=getComputedStyle(document.documentElement);['brick','tomato','sun','grape','grass','ink','muted','edge','stone','scene-top','scene-bot','dirt','paper'].forEach(k=>C[k]=cs.getPropertyValue('--'+k).trim());}
+const pop=(x,y,t,c)=>{G.pops=[{x,y,t,c,life:900}];};
+function jump(){
+  if(!G||G.done)return;
+  if(G.jail){G.mash++;G.shake=140;if(G.mash>=G.jail.need)escape();else note(`${jailTitle(G.jail.e)} ${days(G.jail.e)} 天！还要再按 <b>${G.jail.need-G.mash}</b> 下才能越狱。 <a href="#${G.jail.e.id}" data-jump>看这次的入狱档案</a>`);return;}
+  if(G.h===0&&G.fall<=0)G.vh=.62;
+}
+function escape(){
+  const j=G.jail;G.freed.add(j.e.id);G.jail=null;G.x=j.x1+6;G.h=0;
+  pop(G.x+20,ground-70,'出来了！',C.grass);
+  note(`越狱成功！${dot(j.e.start)} 那次${j.e.confidence==='confirmed'?'实打实':'疑似'}关了 ${days(j.e)} 天。`);
+}
+function update(dt){
+  G.pops.forEach(p=>p.life-=dt);G.pops=G.pops.filter(p=>p.life>0);
+  if(G.shake>0)G.shake-=dt;
+  if(G.done)return;
+  if(G.fall>0){G.fall-=dt;G.h-=dt*.35;if(G.fall<=0){G.h=0;G.x=G.respawn;}return;}
+  if(G.jail){if(auto){G.autoT+=dt;if(G.autoT>230){G.autoT=0;jump();}}return;}
+  const move=auto?1:(keys.R?1:0)-(keys.L?1:0);
+  const cx0=G.x+21;
+  if(auto&&G.h===0&&pits.some(p=>p.x0-cx0>8&&p.x0-cx0<46))G.vh=.62;
+  if(move)G.dir=move;
+  G.x=clamp(G.x+move*dt*.34,10,worldW-60);
+  G.acc+=dt;if(move&&G.acc>110){G.acc=0;G.frame^=1;}
+  if(G.h>0||G.vh>0){G.vh-=.0019*dt;G.h=Math.max(0,G.h+G.vh*dt);if(G.h===0)G.vh=0;}
+  const cx=G.x+21;
+  for(const j of jails){if(!G.freed.has(j.e.id)&&cx>=j.x0&&cx<=j.x1){G.jail=j;G.mash=0;G.x=(j.x0+j.x1)/2-21;G.h=0;G.vh=0;G.shake=200;
+    note(`${dot(j.e.start)}，${jailTitle(j.e)} ${days(j.e)} 天！连按 <b>跳 / 越狱</b> ${j.need} 下出来。 <a href="#${j.e.id}" data-jump>看这次的入狱档案</a>`);return;}}
+  if(G.h===0)for(const p of pits){if(cx>p.x0+6&&cx<p.x1-6){G.fall=650;G.respawn=p.x0-80;note(`掉进被吞的坑了！${dot(p.e.start)} 这天 ${p.e.affected_episodes.length} 期视频被拿去祭天。下次记得跳。`);return;}}
+  for(const c of coins){if(c.got||Math.abs(c.x-cx)>14)continue;
+    if(c.ep.status==='lost'){if(!G.lostSeen.has(c.ep.no)){G.lostSeen.add(c.ep.no);pop(c.x,c.y-10,`第${c.ep.no}期 查无此期`,C.stone);}continue;}
+    c.got=true;G.got++;if(c.est){pop(c.x,c.y-10,`第${c.ep.no}期 日期待补`,C.stone);continue;}if(c.ep.status==='live'){if(c.ep.no%50===0)pop(c.x,c.y-10,`第${c.ep.no}期！`,C.sun);continue;}pop(c.x,c.y-10,c.ep.status==='live'?`+1 第${c.ep.no}期`:c.ep.status==='mirrored'?`第${c.ep.no}期 补档捡回`:`第${c.ep.no}期 只剩文稿`,c.ep.status==='live'?C.sun:c.ep.status==='mirrored'?C.grass:C.grape);}
+  if(cx>=X(END)-6){G.done=true;note(`通关！一路吃到 ${G.got} 枚金币，越狱 ${G.freed.size} 次。今天老马还在外面。按 <b>从头再来</b> 再跑一遍。`);}
+}
+function px(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));}
+function draw(now){
+  const cx=G.x+21, cam=clamp(G.x-W*.35,0,Math.max(0,worldW-W));
+  const g=ctx.createLinearGradient(0,0,0,ground);g.addColorStop(0,C['scene-top']);g.addColorStop(1,C['scene-bot']);
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,cv.height);
+  ctx.save();ctx.translate(-Math.round(cam),0);
+  const vis=(a,b)=>b>=cam-60&&a<=cam+W+60;
+  // bricks
+  ctx.globalAlpha=.55;
+  months.forEach((m,i)=>{const x=X(m);if(!vis(x,x+COLW))return;const h=Math.min(Math.ceil(mc[i]/2),7),he=Math.min(Math.ceil(mcEst[i]/2),7-h);for(let k=0;k<h+he;k++){for(let q=0;q<3;q++){const bx=x+4+q*30,by=ground-(k+1)*15;px(bx,by,27,13,k<h?C.brick:C.stone);px(bx,by+11,27,2,'rgba(0,0,0,.25)');}}if(he>0&&!h){ctx.globalAlpha=1;ctx.fillStyle=C.muted;ctx.font='bold 11px "Noto Sans SC", sans-serif';ctx.textAlign='center';ctx.fillText('日期待补',x+COLW/2,ground-he*15-6);ctx.globalAlpha=.55;}});
+  ctx.globalAlpha=1;
+  // ground
+  px(cam-10,ground,W+20,8,C.grass);px(cam-10,ground+8,W+20,cv.height-ground-8,C.dirt);
+  for(let x=Math.floor(cam/16)*16;x<cam+W;x+=16)px(x,ground+16,8,4,'rgba(0,0,0,.22)');
+  // pits
+  ctx.textAlign='center';
+  for(const p of pits){if(!vis(p.x0,p.x1))continue;px(p.x0,ground,p.x1-p.x0,cv.height-ground,'#000');px(p.x0-3,ground,3,cv.height-ground,C.grape);px(p.x1,ground,3,cv.height-ground,C.grape);
+    px((p.x0+p.x1)/2-2,ground-40,4,40,C.edge);px((p.x0+p.x1)/2-16,ground-58,32,20,C.grape);ctx.fillStyle='#fff';ctx.font='14px "ZCOOL KuaiLe", sans-serif';ctx.fillText('吞',(p.x0+p.x1)/2,ground-43);}
+  // vacations
+  for(const v of vacs){if(!vis(v.x0,v.x1))continue;ctx.globalAlpha=.35;px(v.x0,40,v.x1-v.x0,ground-40,'#7FB8E6');ctx.globalAlpha=1;px(v.x0,ground-6,v.x1-v.x0,6,'#F2D59B');const m=(v.x0+v.x1)/2;px(m-2,ground-70,4,64,C.edge);px(m-26,ground-80,52,12,C.tomato);px(m-10,ground-80,20,12,'#fff');ctx.fillStyle=C.ink;ctx.font='bold 13px "Noto Sans SC", sans-serif';ctx.textAlign='center';ctx.fillText('编辑部放假中',m,ground-90);}
+  // jails
+  for(const j of jails){if(!vis(j.x0,j.x1))continue;const conf=j.e.confidence==='confirmed',c=conf?C.tomato:j.e.confidence==='inferred'?C.sun:C.stone,top=40,freed=G.freed.has(j.e.id);
+    ctx.globalAlpha=.16;px(j.x0,top,j.x1-j.x0,ground-top,c);ctx.globalAlpha=1;
+    px(j.x0,top,j.x1-j.x0,5,c);px(j.x0,ground-5,j.x1-j.x0,5,c);
+    for(let x=j.x0;x<=j.x1;x+=9){const hh=freed?(ground-top)*.25:ground-top;px(x,top,3,hh,c);}
+    const m=(j.x0+j.x1)/2;px(m-38,54,76,24,C.edge);px(m-36,56,72,20,c);
+    ctx.fillStyle=conf?'#fff':'#16161D';ctx.font='10px "Press Start 2P", monospace';ctx.fillText(days(j.e)+'天'+(conf?'':'?'),m,70);}
+  // coins
+  const col={live:C.sun,mirrored:C.grass,transcript_only:C.grape};
+  for(const c of coins){if(c.got||!vis(c.x,c.x))continue;const y=c.y+(reduce?0:Math.sin(now/300+c.i)*2);
+    if(c.ep.status==='lost'){ctx.strokeStyle=C.stone;ctx.lineWidth=2;ctx.strokeRect(c.x-6,y-6,12,12);continue;}
+    if(c.est){px(c.x-6,y-6,12,12,C.stone);ctx.fillStyle='#fff';ctx.font='bold 10px "Noto Sans SC", sans-serif';ctx.textAlign='center';ctx.fillText('?',c.x,y+4);continue;}
+    px(c.x-6,y-6,12,12,col[c.ep.status]||C.stone);px(c.x-6,y+3,12,3,'rgba(0,0,0,.25)');px(c.x-4,y-4,3,3,'rgba(255,255,255,.6)');}
+  // year signs
+  ctx.font='10px "Press Start 2P", monospace';ctx.fillStyle='#F4EBD0';ctx.textAlign='left';
+  for(let y=new Date(T0).getUTCFullYear()+1;y<=new Date(END).getUTCFullYear();y++){const x=X(P(y+'-01-01'));if(vis(x,x+40))ctx.fillText(String(y),x+4,ground+36);}
+  // horse
+  const sx=G.x+(G.shake>0?Math.sin(now/20)*3:0), sy=ground-44-(G.jail?0:G.h)-(!G.jail&&G.h===0&&G.frame&&!auto&&!(keys.L||keys.R)?0:0);
+  ctx.save();
+  if(G.dir<0){ctx.translate(sx+56,0);ctx.scale(-1,1);sprite(ctx,0,sy-(G.frame&&G.h===0?3:0),G.jail?0:G.frame,4);}else sprite(ctx,sx,sy-(G.frame&&G.h===0&&!G.jail?3:0),G.jail?0:G.frame,4);
+  ctx.restore();
+  if(G.jail){const c=G.jail.e.confidence==='confirmed'?C.tomato:G.jail.e.confidence==='inferred'?C.sun:C.stone;for(let k=0;k<6;k++)px(sx-4+k*12,sy-14,3,62,c);px(sx-6,sy-16,70,4,c);}
+  // pops
+  ctx.textAlign='center';ctx.font='bold 13px "Noto Sans SC", sans-serif';
+  for(const p of G.pops){ctx.globalAlpha=Math.min(1,p.life/300);ctx.fillStyle=C.edge;ctx.fillText(p.t,p.x+1,p.y-(900-p.life)/25+1);ctx.fillStyle=p.c;ctx.fillText(p.t,p.x,p.y-(900-p.life)/25);}
+  ctx.globalAlpha=1;
+  ctx.restore();
+  // HUD
+  const near=coinAt(cx), ep=near&&near.ep, dateTxt=!near?dot(F(Tof(cx))):ep.date?dot(ep.date):'约 '+dot(F(Tof(near.x))).slice(0,7);
+  const sm=W<480;px(8,8,sm?128:190,40,'rgba(0,0,0,.55)');ctx.textAlign='left';ctx.fillStyle='#FFC72C';ctx.font='10px "Press Start 2P", monospace';
+  ctx.font=sm?'8px "Press Start 2P", monospace':ctx.font;ctx.fillText(dateTxt,16,24);ctx.fillStyle='#fff';ctx.font='bold 12px "Noto Sans SC", sans-serif';ctx.fillText(ep?`第 ${ep.no} 期${ep.date?(ep.date_estimated?'（推算）':''):'（日期待补）'}`:'还没开播',16,41);if(sm){/* compact */}
+  px(W-(sm?120:178),8,sm?112:170,40,'rgba(0,0,0,.55)');ctx.textAlign='right';ctx.fillStyle='#FFC72C';ctx.font='10px "Press Start 2P", monospace';
+  ctx.font=sm?'8px "Press Start 2P", monospace':ctx.font;ctx.fillText(`¤ ${G.got}/${collectable}`,W-16,24);ctx.fillStyle='#fff';ctx.font='bold 12px "Noto Sans SC", sans-serif';ctx.fillText(`越狱 ${G.freed.size}/${jails.length} 次`,W-16,41);
+  if(G.jail){const m=`${jailTitle(G.jail.e)}！还差 ${G.jail.need-G.mash} 下`;ctx.textAlign='center';ctx.font='18px "ZCOOL KuaiLe", sans-serif';const w=ctx.measureText(m).width+28;px(W/2-w/2,90,w,30,C.edge);ctx.fillStyle='#fff';ctx.fillText(m,W/2,112);}
+  if(G.done){ctx.textAlign='center';ctx.font='24px "ZCOOL KuaiLe", sans-serif';const m='通关！老马今天还在外面';const w=ctx.measureText(m).width+36;px(W/2-w/2,58,w,40,C.grass);ctx.fillStyle='#fff';ctx.fillText(m,W/2,86);}
+  // progress bar
+  document.getElementById('barFill').style.width=(cx/worldW*100)+'%';
+  document.getElementById('barHorse').style.left=(cx/worldW*100)+'%';
+}
+function loop(now){const dt=Math.min(now-(lastT||now),40);lastT=now;update(dt);draw(now);raf=requestAnimationFrame(loop);}
+function run(){
+  cancelAnimationFrame(raf);readColors();
+  W=Math.max(cv.parentElement.clientWidth,300);cv.width=W;cv.style.width=W+'px';
+  if(!G)reset();lastT=0;raf=requestAnimationFrame(loop);
+}
+// progress bar
+const bar=document.getElementById('bar');
+bar.insertAdjacentHTML('afterbegin',jails.map(j=>`<i class="j ${j.e.confidence==='confirmed'?'':'s'}" style="left:${j.x0/worldW*100}%;width:${Math.max(.6,(j.x1-j.x0)/worldW*100)}%"></i>`).join(''));
+document.getElementById('barYears').innerHTML=Array.from({length:new Date(END).getUTCFullYear()-new Date(T0).getUTCFullYear()},(_,k)=>{const y=new Date(T0).getUTCFullYear()+1+k;return `<span style="left:${X(P(y+'-01-01'))/worldW*100}%">${y}</span>`;}).join('');
+bar.addEventListener('click',ev=>{const r=bar.getBoundingClientRect();G.x=clamp((ev.clientX-r.left)/r.width*worldW-21,10,worldW-60);G.jail=null;G.h=0;G.vh=0;G.fall=0;G.done=false;note(`传送到 ${dot(F(Tof(G.x+21)))}。`);});
+// controls
+const setAuto=v=>{auto=v;document.getElementById('kAuto').setAttribute('aria-pressed',v);};
+setAuto(auto);
+const hold=(id,k)=>{const b=document.getElementById(id);const on=e=>{e.preventDefault();keys[k]=true;b.classList.add('on');if(auto){setAuto(false);note('换你操控了。');}};const off=()=>{keys[k]=false;b.classList.remove('on');};
+  b.addEventListener('pointerdown',on);['pointerup','pointerleave','pointercancel'].forEach(t=>b.addEventListener(t,off));};
+hold('kL','L');hold('kR','R');
+document.getElementById('kJ').addEventListener('click',jump);
+document.getElementById('kAuto').addEventListener('click',()=>{setAuto(!auto);note(auto?'自动跑中。':'换你操控了。');});
+document.getElementById('kReset').addEventListener('click',()=>{reset();});
+cv.addEventListener('click',jump);
+const game=document.getElementById('game');
+document.addEventListener('pointerdown',e=>{active=game.contains(e.target);});
+cv.addEventListener('focus',()=>active=true);
+addEventListener('keydown',e=>{if(!active)return;
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();keys[e.key==='ArrowRight'?'R':'L']=true;if(auto){setAuto(false);note('换你操控了。');}}
+  else if(e.key===' '||e.key==='ArrowUp'){e.preventDefault();if(!e.repeat)jump();}});
+addEventListener('keyup',e=>{if(e.key==='ArrowRight')keys.R=false;if(e.key==='ArrowLeft')keys.L=false;});
+noteEl.addEventListener('click',ev=>{const a=ev.target.closest('[data-jump]');if(!a)return;ev.preventDefault();location.hash='timeline';const el=document.getElementById(a.getAttribute('href').slice(1));if(el)setTimeout(()=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');},80);return;el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');});
+addEventListener('resize',()=>{if(location.hash==='#game')run();});
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',readColors);
+new MutationObserver(readColors).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+/* level cards */
+const face={confirmed:'T_T',inferred:'?_?',pending:'o_O'};
+const nth={};{let nb=0,nt=0,nv=0;for(const e of events)nth[e.id]=e.type==='takedown'?++nt:e.voluntary?++nv:++nb;}
+document.getElementById('events').innerHTML=events.slice().reverse().map((e,i)=>{
+  const one=e.type==='takedown', lv=events.length-i;
+  const minis=(e.affected_episodes||[]).filter(n=>byNo[n]).map(n=>`<button class="coin s-${byNo[n].status}" data-no="${n}" title="第${n}期 · ${stName[byNo[n].status]}" aria-label="第${n}期"></button>`).join('');
+  return `<article class="ev sticker ${e.confidence} ${one?'takedown':''} ${e.voluntary?'voluntary':''}" id="${e.id}" data-start="${e.start}">
+    <span class="stamp ${e.confidence}">${e.voluntary?'放假':confName[e.confidence]}</span>
+    <div class="face">${one?'!!':e.voluntary?'^_^':face[e.confidence]}</div>
+    <div><div class="lv">${one?`第 ${nth[e.id]} 次被祭天`:e.voluntary?`第 ${nth[e.id]} 次放假（不算进宫）`:`第 ${nth[e.id]} 次进宫`}</div>
+      <h3>${one?`${e.affected_episodes.length} 期视频被拿去祭天`:e.voluntary?`编辑部放假 ${days(e)} 天`:e.confidence==='confirmed'?`喜提小黑屋 ${days(e)} 天`:e.confidence==='inferred'?`疑似又进去了 ${days(e)} 天`:`突然失联 ${days(e)} 天`}</h3>
+      <div class="when">${dot(e.start)}${one?(e.end&&e.end!==e.start?' ~ '+dot(e.end):''):' → '+(e.end?dot(e.end):'至今')}</div>
+      <p>${e.title?`<b>${esc(e.title)}</b> `:''}${esc(e.summary||e.reason||'')||(one?'前后两次快照一对比，这几期在 B站没了。点下面的小方块看它们流落何方。':e.voluntary?'节目自己放的假，不算进宫。':'老马不会说，平台更不会说。只看到他突然不更了，还没抓到前后快照。手里有当时的截图或存档吗？')}</p>
+      ${minis?`<div class="minis" aria-label="受影响的期">${minis}</div>`:''}
+      <div class="evid">${e.evidence.map(v=>`<a href="${esc(v.url||'#timeline')}" target="_blank" rel="noopener" title="${esc(evName[v.kind]||v.kind)}${v.before?' · 有前后对比':''}">${esc(v.label||evName[v.kind]||'证据')}</a>${v.before?`<a href="${esc(v.before)}" target="_blank" rel="noopener">之前</a>`:''}`).join('')}</div></div>
+  </article>`;}).join('');
+
+/* year timeline：把卡片按年份分段，配 1–12 月的时长条 */
+(function buildTimeline(){
+  const box=document.getElementById('events');
+  const cards=[...box.querySelectorAll('article.ev')];
+  const byId=Object.fromEntries(cards.map(c=>[c.id,c]));
+  const endT=e=>P(evEnd(e)||e.start);
+  const y0=Math.min(new Date(T0).getUTCFullYear(),...events.map(e=>+e.start.slice(0,4)));
+  const y1=Math.max(new Date(TODAY).getUTCFullYear(),...events.map(e=>new Date(endT(e)).getUTCFullYear()));
+  const sp=document.getElementById('tlspan');if(sp)sp.textContent=`${y0} → ${y1}`;
+  const und=(typeof undated!=='undefined')?undated:[];
+  let html='';
+  for(let y=y1;y>=y0;y--){
+    const ys=Date.UTC(y,0,1), ye=Date.UTC(y+1,0,1), span=ye-ys, pct=t=>((t-ys)/span*100).toFixed(2);
+    let strip='';
+    for(let m=0;m<12;m++)strip+=`<span class="mo" style="left:${(m/12*100).toFixed(2)}%">${m+1}</span>`;
+    for(const x of episodes){const t=P(x.date);if(t>=ys&&t<ye)strip+=`<i class="tick" style="left:${pct(t)}%"></i>`;}
+    for(const u of und){if(u.t>=ys&&u.t<ye)strip+=`<i class="tick est" style="left:${pct(u.t)}%"></i>`;}
+    const inYear=[],carry=[];
+    for(const e of events){
+      const a=P(e.start), b=endT(e)+DAY;
+      if(b<=ys||a>=ye)continue;
+      if(e.type==='takedown'){strip+=`<button class="flag" data-ev="${e.id}" style="left:${pct(a)}%" title="${dot(e.start)} ${e.affected_episodes.length} 期被祭天">吞</button>`;}
+      else{const cls=e.voluntary?'v':e.confidence==='confirmed'?'c':e.confidence==='inferred'?'i':'p';
+        const l=Math.max(a,ys), r=Math.min(b,ye), w=(r-l)/span*100;
+        strip+=`<span class="seg ${cls}" data-ev="${e.id}" style="left:${pct(l)}%;width:${w.toFixed(2)}%" title="${dot(e.start)} → ${evEnd(e)?dot(evEnd(e)):'至今'}">${w>6?days(e)+'天':''}</span>`;}
+      if(+e.start.slice(0,4)===y)inYear.push(e);else if(e.type!=='takedown')carry.push(e);
+    }
+    if(TODAY>=ys&&TODAY<ye)strip+=`<i class="nowpin" style="left:${pct(TODAY)}%"></i>`;
+    const nb=inYear.filter(e=>e.type!=='takedown'&&!e.voluntary).length, nt=inYear.filter(e=>e.type==='takedown').length;
+    const sub=[nb?`进宫 ${nb} 次`:'',nt?`祭天 ${nt} 次`:'',inYear.some(e=>e.voluntary)?'放假':'',carry.length?'接上年':''].filter(Boolean).join(' · ')||'平安无事';
+    const main=inYear.filter(e=>e.type!=='takedown').sort((p,q)=>P(q.start)-P(p.start));
+    const tks=inYear.filter(e=>e.type==='takedown').sort((p,q)=>P(q.start)-P(p.start));
+    html+=`<div class="tl-year" data-y="${y}"><div class="tl-y">${y}<small>${sub}</small></div><div><div class="strip">${strip}</div>
+      ${main.length||tks.length?`<div class="yr-cards" data-ids="${main.concat(tks.slice(0,2)).map(e=>e.id).join(',')}"></div>${tks.length>2?`<button class="yr-more" data-more="${tks.slice(2).map(e=>e.id).join(',')}">再看 ${tks.length-2} 次祭天 ▾</button>`:''}`:carry.length?`<div class="yr-quiet">${carry.map(e=>`上一年开始的「${e.voluntary?'编辑部放假':jailTitle(e)}」一直持续到 ${evEnd(e)?dot(evEnd(e)).slice(5):'今天'}。<button class="yr-more" data-ev="${e.id}" style="margin:0 0 0 6px">看档案 ↑</button>`).join('<br>')}</div>`:`<div class="yr-quiet">这一年老马一直在外面，正常更新。</div>`}</div></div>`;
+  }
+  box.innerHTML=html;
+  box.querySelectorAll('.yr-cards').forEach(g=>g.dataset.ids.split(',').filter(Boolean).forEach(id=>byId[id]&&g.appendChild(byId[id])));
+  box.addEventListener('click',ev=>{
+    const m=ev.target.closest('[data-more]');
+    if(m){const g=m.previousElementSibling;m.dataset.more.split(',').forEach(id=>byId[id]&&g.appendChild(byId[id]));m.remove();return;}
+    const s=ev.target.closest('[data-ev]');if(!s)return;
+    let el=byId[s.dataset.ev];if(!el)return;
+    if(!el.isConnected){const btn=box.querySelector(`[data-more*="${s.dataset.ev}"]`);btn&&btn.click();}
+    el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  });
+})();
+
+/* coin wall */
+const on=new Set(order);
+const fl=document.getElementById('filters');
+fl.innerHTML=order.map(k=>`<button aria-pressed="true" data-s="${k}"><span class="coin s-${k}"></span>${stName[k]} <span class="c">${allEps.filter(x=>x.status===k).length}</span></button>`).join('');
+fl.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const k=b.dataset.s;on.has(k)?on.delete(k):on.add(k);b.setAttribute('aria-pressed',on.has(k));document.querySelectorAll('#wall .coin').forEach(c=>c.classList.toggle('dim',!on.has(byNo[c.dataset.no].status)));});
+document.getElementById('wall').innerHTML=yearKeys.map(y=>[y,years[y]]).map(([y,xs])=>`<div class="year"><div class="y">${y}</div><div class="cells">${xs.map(x=>`<button class="coin s-${x.status}" data-no="${x.no}" title="第${x.no}期 · ${x.date?x.date+(x.date_estimated?'（推算）':''):'日期未知'} · ${stName[x.status]}" aria-label="第${x.no}期 ${stName[x.status]}"></button>`).join('')}</div></div>`).join('');
+
+/* drawer */
+const dr=document.getElementById('drawer');
+function openEp(n){
+  const x=byNo[n], ev=events.find(e=>e.id===x.event_id);
+  dr.innerHTML=`<button class="x" id="dx">关掉</button>
+   <div class="no">EP.${x.no}</div><h3>${esc(x.title)||'（标题未知）'}</h3>
+   <dl><dt>发布</dt><dd>${dot(x.date)}${x.date_estimated?' <small>推算</small>':''}</dd>
+   <dt>下落</dt><dd><span class="coin s-${x.status}" style="display:inline-block;vertical-align:-3px;margin-right:6px;cursor:default"></span>${stName[x.status]}</dd>
+   ${x.removed_at?`<dt>被吞于</dt><dd>${dot(x.removed_at)}</dd>`:''}
+   ${ev?`<dt>哪一关</dt><dd><a href="#timeline" data-goto="${ev.id}">${dot(ev.start).slice(0,7)} ${ev.title}</a></dd>`:''}
+   <dt>BV 号</dt><dd>${x.bvid||'—'}</dd></dl>
+   ${sourcesFor(x).length?'':'<p class="lede">还没找到任何来源。</p>'}${sourcesFor(x).map(s=>`<div class="src"><span class="k">${srcName[s.kind]}${s.official?' · 官方':''}</span><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc((()=>{try{return new URL(s.url).hostname}catch(_){return s.url||'—'}})())}</a>${!s.alive?'<span class="dead">GONE</span>':(!s.official&&s.verified===false)?'<span class="unv">待确认</span>':'<span class="ok">OK</span>'}</div>`).join('')}`;
+  dr.hidden=false;document.getElementById('dx').focus();
+}
+document.addEventListener('click',ev=>{
+  const c=ev.target.closest('#wall .coin,.minis .coin');if(c){openEp(+c.dataset.no);return;}
+  if(ev.target.id==='dx'){dr.hidden=true;return;}
+  const g=ev.target.closest('[data-goto]');if(g){dr.hidden=true;setTimeout(()=>{const el=document.getElementById(g.dataset.goto);el&&el.scrollIntoView({block:'center'});},60);}
+});
+addEventListener('keydown',e=>{if(e.key==='Escape')dr.hidden=true;});
+
+/* routing */
+const views=['timeline','game','coins','rules'];
+function route(){const v=views.includes(location.hash.slice(1))?location.hash.slice(1):'timeline';
+  views.forEach(k=>document.getElementById('v-'+k).classList.toggle('on',k===v));
+  document.querySelectorAll('nav a').forEach(a=>a.dataset.v===v?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  if(v==='game')requestAnimationFrame(run);else cancelAnimationFrame(raf);}
+addEventListener('hashchange',route);route();
+document.fonts?.ready.then(()=>{if(location.hash==='#game')run();});
+})();
+</script>

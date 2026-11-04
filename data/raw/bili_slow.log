@@ -1,0 +1,12 @@
+  [风控] https://api.bilibili.com/x/space/wbi/acc/info code=-352 风控校验失败 → 等 30s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/acc/info code=-352 风控校验失败 → 等 60s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/acc/info code=-352 风控校验失败 → 等 120s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/acc/info code=-352 风控校验失败 → 等 240s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/acc/info code=-352 风控校验失败 → 等 480s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/arc/search code=-412 HTTP 412 → 等 30s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/arc/search code=-352 风控校验失败 → 等 60s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/arc/search code=-412 HTTP 412 → 等 120s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/arc/search code=-412 HTTP 412 → 等 240s 重试
+  [风控] https://api.bilibili.com/x/space/wbi/arc/search code=-352 风控校验失败 → 等 480s 重试
+  第 1 页失败: code=-352 风控校验失败
+抓到 0 条 / 预期 None，silence=None，完整=False，风控 10 次
