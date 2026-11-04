@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-04T11:40:37.775649+00:00",
+ "fetched_at": "2026-11-04T19:46:18.016082+00:00",
  "repo": "https://github.com/bedtimenews/bedtimenews-archive-contents",
  "commit": [
   "07a427db44cda52d461ca19cb902a1fc5c44d081",
@@ -11854,6 +11854,12 @@
   "BV1KYyGBsERj": {
    "captures": [
     {
+     "ts": "20251118141646",
+     "state": "alive",
+     "title": "【睡前消息980】生育奇迹造假 成都引大济岷_哔哩哔哩_bilibili",
+     "url": "https://web.archive.org/web/20251118141646/https://www.bilibili.com/video/BV1KYyGBsERj/"
+    },
+    {
      "ts": "20251119051855",
      "state": "alive",
      "title": "【睡前消息980】生育奇迹造假 成都引大济岷_哔哩哔哩_bilibili",
@@ -11866,13 +11872,13 @@
      "url": "https://web.archive.org/web/20251119051903/https://www.bilibili.com/video/BV1KYyGBsERj/"
     },
     {
-     "ts": "20251213220544",
+     "ts": "20251130025559",
      "state": "gone",
      "title": "视频去哪了呢？_哔哩哔哩_bilibili",
-     "url": "https://web.archive.org/web/20251213220544/https://www.bilibili.com/video/BV1KYyGBsERj/?spm_id_from=333.788.recommend_more_video.3"
+     "url": "https://web.archive.org/web/20251130025559/https://www.bilibili.com/video/BV1KYyGBsERj/"
     }
    ],
-   "done": false
+   "done": true
   },
   "BV1M3AQzmEHe": {
    "captures": [
