@@ -4,7 +4,7 @@ import collections, json, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CHECKS = {
     '播出日期': lambda e: e['date'],
-    '精确日期': lambda e: e['date'] and not e.get('date_estimated'),
+    '精确日期': lambda e: e['date'] and not e.get('date_estimated') and not e.get('date_note'),
     'B站状态': lambda e: e['status'] != 'unknown',
     'YouTube补档': lambda e: any(s['kind'] == 'youtube' and s['alive'] for s in e['sources']),
     '任意补档': lambda e: any(s['kind'] != 'bilibili' and s['alive'] for s in e['sources']),

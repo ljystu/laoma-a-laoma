@@ -7,7 +7,7 @@
   "end": null,
   "title": "第74期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    74
   ],
@@ -20,7 +20,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -44,7 +44,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -68,7 +68,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -92,7 +92,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -103,7 +103,7 @@
   "end": null,
   "title": "第316期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。",
   "affected_episodes": [
    316
   ],
@@ -116,7 +116,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -127,7 +127,7 @@
   "end": null,
   "title": "第353期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    353
   ],
@@ -140,7 +140,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -164,7 +164,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -188,7 +188,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -212,7 +212,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -236,7 +236,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -260,7 +260,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -271,7 +271,7 @@
   "end": null,
   "title": "第588期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    588
   ],
@@ -284,7 +284,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -309,7 +309,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -381,7 +381,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -418,18 +418,18 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
   "id": "ev-silence-2023-11-23",
   "type": "ban",
   "confidence": "confirmed",
-  "start": "2023-11-19",
+  "start": "2023-11-21",
   "end": "2023-12-01",
   "title": "第674–676期 B站账号禁言（接口 silence=1）",
   "reason": "因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。",
-  "summary": "社区文稿库标注：因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。 起止按第672期与第677期的发布日期计。 同期 YouTube「睡前消息」频道仍发布 1 期睡前消息。 接口 silence=1 从 2023-11-23 起被观测到，起点取停更前最后一次投稿 2023-11-19。 acc/info 接口在 2023-11-23 至 2023-11-26 的 13 个快照里返回 silence=1。真实开始时间在 2023-11-21 与 2023-11-23 之间，结束时间在 2023-11-26 与 2023-12-01 之间。",
+  "summary": "社区文稿库标注：因账号处于禁言状态，674至676期暂无更新。677期后睡前消息恢复更新。 起止按第673期与第677期的发布日期计。 接口 silence=1 从 2023-11-23 起被观测到，起点取停更前最后一次投稿 2023-11-21。 acc/info 接口在 2023-11-23 至 2023-11-26 的 13 个快照里返回 silence=1。真实开始时间在 2023-11-21 与 2023-11-23 之间，结束时间在 2023-11-26 与 2023-12-01 之间。",
   "affected_episodes": [
    674,
    675,
@@ -455,16 +455,10 @@
     "url": "https://archive.bedtime.news/main/601-700",
     "label": "睡前消息文稿库目录页提示",
     "date": null
-   },
-   {
-    "kind": "other",
-    "url": "https://www.youtube.com/watch?v=aqPHh8dl9SM",
-    "label": "YouTube 同期更新：【睡前消息672】马督工的老朋友，又少了一批",
-    "date": "2023-11-20"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -501,7 +495,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -686,7 +680,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -697,7 +691,7 @@
   "end": null,
   "title": "第878期下架（社区备注：UP主自删）",
   "reason": "督工自己删除",
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    878
   ],
@@ -716,7 +710,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -746,7 +740,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -783,7 +777,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -813,7 +807,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -843,18 +837,18 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
-  "id": "ev-2025-08",
+  "id": "ev-2025-09",
   "type": "ban",
   "confidence": "inferred",
-  "start": "2025-08-31",
+  "start": "2025-09-02",
   "end": "2025-09-19",
   "title": "第948–953期 B站停更（社区标注）",
   "reason": "因947期原因，马督工B站账号被封15天，无948-953期",
-  "summary": "社区文稿库标注：因947期原因，马督工B站账号被封15天，无948-953期 起止按第946期与第954期的发布日期计。 同期 YouTube「睡前消息」频道仍发布 1 期睡前消息。",
+  "summary": "社区文稿库标注：因947期原因，马督工B站账号被封15天，无948-953期 起止按第947期与第954期的发布日期计。",
   "affected_episodes": [
    948,
    949,
@@ -869,16 +863,10 @@
     "url": "https://archive.bedtime.news/main/901-1000",
     "label": "睡前消息文稿库目录页提示",
     "date": null
-   },
-   {
-    "kind": "other",
-    "url": "https://www.youtube.com/watch?v=FH5DeCiTOsY",
-    "label": "YouTube 同期更新：【睡前消息946】“只有峨眉山”亏到关门，王潮歌岳阳接单",
-    "date": "2025-09-01"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -889,7 +877,7 @@
   "end": null,
   "title": "第947期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    947
   ],
@@ -908,7 +896,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -919,7 +907,7 @@
   "end": null,
   "title": "第961期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    961
   ],
@@ -932,7 +920,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -962,18 +950,18 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-974",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2025-11-05",
+  "start": "2025-11-04",
   "end": null,
   "title": "第974期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    974
   ],
@@ -986,7 +974,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1023,7 +1011,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1060,7 +1048,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1090,7 +1078,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1101,7 +1089,7 @@
   "end": null,
   "title": "第1029期下架",
   "reason": null,
-  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是按期号/aid 推算的发布日期。 列在社区“下架合集”。",
+  "summary": "没有找到在线→消失的存档对，下架时间未知，start 用的是原发布日期。 列在社区“下架合集”。",
   "affected_episodes": [
    1029
   ],
@@ -1120,7 +1108,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1150,14 +1138,14 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
   "id": "ev-takedown-1073",
   "type": "takedown",
   "confidence": "inferred",
-  "start": "2026-07-04",
+  "start": "2026-07-03",
   "end": null,
   "title": "第1073期下架",
   "reason": null,
@@ -1180,7 +1168,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1217,7 +1205,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  },
  {
@@ -1292,7 +1280,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-04T20:08:29+08:00",
+  "updated_at": "2026-11-04T21:29:46+08:00",
   "voluntary": false
  }
 ]

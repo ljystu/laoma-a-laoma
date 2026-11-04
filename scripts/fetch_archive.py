@@ -11,6 +11,7 @@ REPO = ROOT / 'data' / 'raw' / 'bedtimenews'
 URL = 'https://github.com/bedtimenews/bedtimenews-archive-contents'
 SITE = 'https://archive.bedtime.news'
 MID = 316568752
+SPOKEN = re.compile(r'大家好[，,\s]*(?:今天是)?\s*(20[12]\d)\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*[日号][，,\s]*(?:星期|周)?([一二三四五六日天])?')
 
 
 def git(*a):
@@ -34,6 +35,16 @@ def front(text):
     return dict(re.findall(r'^(\w+):\s*(.*)$', m.group(1), re.M)) if m else {}
 
 
+def spoken(m):
+    """口播日期原文（日期本身不合法就丢掉）；星期几另存，交给 analyze 和前后期对照校正"""
+    if not m:
+        return None
+    try:
+        return dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3))).isoformat()
+    except ValueError:
+        return None
+
+
 def episodes():
     out = {}
     for p in sorted((REPO / 'main').glob('*-*/*.md')):
@@ -46,9 +57,12 @@ def episodes():
         bv = re.search(r'bvid=(BV[0-9A-Za-z]{10})', t)
         yt = re.search(r'(?:embed/|watch\?v=|youtu\.be/)([0-9A-Za-z_-]{11})', t)
         xg = re.search(r'ixigua\.com/iframe/(\d{15,20})', t)
+        sp = SPOKEN.search(t)  # 文稿开头的口播日期“大家好，2019年11月19日……”
         out[no] = {'no': no, 'kind': 'special' if m.group(2) else 'main', 'title': fm.get('title', ''),
                    'bvid': bv and bv.group(1), 'youtube_id': yt.group(1) if yt and yt.group(1) != 'YouTubeVID' else None,
                    'xigua_id': xg and xg.group(1),
+                   'spoken_date': spoken(sp),
+                   'spoken_wd': sp and sp.group(4) and '一二三四五六日'.index(sp.group(4).replace('天', '日')),
                    'url': f"{SITE}/{p.relative_to(REPO).with_suffix('').as_posix()}",
                    'wiki_created': fm.get('dateCreated')}
     return out

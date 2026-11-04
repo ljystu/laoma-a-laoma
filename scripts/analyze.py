@@ -62,16 +62,23 @@ def flip(states):
     return None
 
 
-def pick_date(b, xg, ps, ys, vd=None):
-    """(日期, 来源)。优先级：B站列表 pubdate > B站 view 接口 pubdate > 西瓜视频 ID 时间戳 > 蜻蜓FM 标题原播出日期 > YouTube 上传日 > 蜻蜓FM update_time"""
+def pick_date(b, xg, ps, ys, vd=None, md=None, sp=None, n=0):
+    """(日期, 来源)。优先级：B站列表 > B站 view 接口 > 手工核实（Wayback 里的 pubdate / B站动态）> 西瓜视频 ID 时间戳
+    > 蜻蜓FM 标题原播出日期 > YouTube 上传日 / 文稿口播日期 > 蜻蜓FM update_time。
+    900 期以后官方 YouTube 比 B站晚 0–12 天，只当上限：口播日期排在它前面。"""
     if b:
         return bj_date(b['pubdate']), 'bilibili'
     if vd:
         return vd, 'bilibili_view'
+    if md:
+        return md['date'], md['source']
     if xg:
         return dt.datetime.fromtimestamp(int(xg) >> 32, BJ).date().isoformat(), 'xigua_id'
+    yt = (min((y['date'] for y in ys if y['date'] and y.get('channel_name') == '睡前消息'), default=None), 'youtube_upload')
+    fan = (min((y['date'] for y in ys if y['date'] and y.get('channel_name') != '睡前消息'), default=None), 'youtube_upload')
+    spk = (sp, 'transcript_spoken')
     for d, src in ((min((v['date'] for v in ps if v['date_from'] == 'title'), default=None), 'podcast_title'),
-                   (min((y['date'] for y in ys if y['date']), default=None), 'youtube_upload'),
+                   *((spk, yt) if n > 900 else (yt, spk)), fan,  # 粉丝/引用的上传日期最不可信
                    (min((v['date'] for v in ps), default=None), 'podcast_update')):
         if d:
             return d, src
@@ -89,6 +96,7 @@ def build(now=None):
              if l.count('\t') >= 3 and not re.search(r'睡前消息|Bedtime|马督工|马前卒', l.split('\t')[3])} if tf.exists() else set()
     up_f = D / 'raw' / 'youtube_uploaders.tsv'  # 视频 id → (频道名, 频道 id)，用于致谢
     upl = {l.split('\t')[0]: l.split('\t')[1:3] for l in up_f.read_text().splitlines()} if up_f.exists() else {}
+    manual = load('manual_dates.json', {})  # 人工核实的日期（附证据链接），优先于推算
     vraw = load('raw/bili_view_dates.json', {})  # dates.py 一次性抓的 view 接口结果
     view = {bv: v['date'] for bv, v in vraw.items() if v.get('date')}
     ar = load('archive.json', {})
@@ -173,25 +181,50 @@ def build(now=None):
         eps[n] = {'no': num(n), 'kind': 'main' if n.is_integer() else 'special',
                   'title': (b or {}).get('title') or (a or {}).get('title') or (ys[0]['title'] if ys else None)
                            or (ps[0]['title'] if ps else None),
-                  **dict(zip(('date', 'date_source'), pick_date(b, xg, ps, ys, view.get(bvid)))),
+                  **dict(zip(('date', 'date_source'), pick_date(b, xg, ps, ys, view.get(bvid), manual.get(str(num(n))),
+                                                                 (a or {}).get('spoken_date'), n))),
                   'status': status, 'bvid': bvid,
                   'removed_at': (rm['at'] if isinstance(rm, dict) else rm) if rm else
                                 (ts_date(vstates[bvid][1]['ts']) if bvid and vstates.get(bvid) else None),
                   'event_id': None, 'sources': srcs}
 
+    # 口播日期有笔误（日子或星期几写错）：用前后期的非口播日期夹一下；夹不住就按说的星期几在 ±6 天里找唯一合适的
+    RELIABLE = ('bilibili', 'bilibili_view', 'wayback_pubdate', 'bilibili_dynamic', 'xigua_id', 'podcast_title')
+    fixed = sorted((k, v['date']) for k, v in eps.items() if v['date'] and v['date_source'] in RELIABLE)
+    for n, e in eps.items():
+        if e['date_source'] != 'transcript_spoken':
+            continue
+        lo = next((d for k, d in reversed(fixed) if k < n), '0000')  # 最近的前一期
+        hi = next((d for k, d in fixed if k > n), '9999')            # 最近的后一期
+        if lo <= e['date'] <= hi:
+            continue
+        wd = (arc.get(n) or {}).get('spoken_wd')
+        base = dt.date.fromisoformat(e['date'])
+        if '0000' < lo and hi < '9999' and days(lo, hi) <= 14:  # 前后期很近：直接在两期之间找那个星期几
+            days_in = (dt.date.fromisoformat(lo) + dt.timedelta(days=k) for k in range(days(lo, hi) + 1))
+        else:
+            days_in = (base + dt.timedelta(days=k) for k in range(-6, 7))
+        cand = [c.isoformat() for c in days_in if wd is not None and c.weekday() == wd and lo <= c.isoformat() <= hi]
+        if len(cand) == 1:
+            e['date'], e['date_fix'] = cand[0], f"口播写的是 {base.isoformat()}，按星期几和前后期校正"
+        else:
+            e['date'] = e['date_source'] = None
+
     # YouTube 日期可能是补传：比后面任何一期还晚的，丢掉（B站日期不动）
     run_min = '9999'
     for n in sorted(eps, reverse=True):
         d = eps[n]['date']
-        if d and n not in bili and eps[n]['date_source'] != 'bilibili_view' and d > run_min:  # 补传日期
+        if d and n not in bili and eps[n]['date_source'] not in ('bilibili_view', 'wayback_pubdate', 'bilibili_dynamic', 'transcript_spoken') and d > run_min:  # 补传日期
             eps[n]['date'] = None
         elif d:
             run_min = min(run_min, d)
 
-    # date_source 跟着日期一起清掉
-    for e in eps.values():
+    # date_source 跟着日期一起清掉；口播日期没有别的来源佐证时标“口播日期”（不算精确）
+    for n, e in eps.items():
         if not e['date']:
             e['date_source'] = None
+        others = {y['date'] for y in ytm.get(n, []) if y['date']} | {v['date'] for v in podm.get(n, [])}
+        e['date_note'] = '口播日期' if e['date_source'] == 'transcript_spoken' and e['date'] not in others else None
 
     # 跳号区间里、任何来源都没有的期 = 从没播出；其余没日期的按 aid / 期号推算（标 date_estimated）
     for n, e in eps.items():
@@ -451,6 +484,11 @@ if __name__ == '__main__':
     assert gaps(['2024-01-0%d' % i for i in range(1, 8)] + ['2024-02-01']) == [('2024-01-07', '2024-02-01', 25)]
     assert flip([{'state': 'alive'}, {'state': None}, {'state': 'gone'}]) == ({'state': 'alive'}, {'state': 'gone'})
     assert pick_date(None, '7242671803528086073', [], []) == ('2023-06-09', 'xigua_id')
+    _yt = [{'date': '2025-11-10'}]
+    assert pick_date(None, None, [], _yt, sp='2025-11-04', n=974) == ('2025-11-04', 'transcript_spoken')
+    _yt = [{'date': '2025-11-10', 'channel_name': '睡前消息'}]
+    assert pick_date(None, None, [], _yt, sp='2025-11-04', n=500) == ('2025-11-10', 'youtube_upload')
+    assert pick_date(None, None, [], [{'date': '2021-11-15', 'channel_name': '文稿库引用'}], sp='2021-11-14', n=353) == ('2021-11-14', 'transcript_spoken')
     s, eps, evs = build()
     write(s, eps, evs)
     from collections import Counter
