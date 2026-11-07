@@ -20,7 +20,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -44,7 +44,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -68,7 +68,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -92,7 +92,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -112,11 +112,11 @@
     "kind": "other",
     "url": "https://api.bilibili.com/x/web-interface/view?bvid=BV1cq4y1D7eV",
     "label": "B站 view 接口返回 -404（稿件不存在）",
-    "date": "2026-11-04"
+    "date": "2026-11-07"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -140,7 +140,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -164,7 +164,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -188,7 +188,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -212,7 +212,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -236,7 +236,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -260,7 +260,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -284,7 +284,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -309,7 +309,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -378,10 +378,16 @@
     "url": "https://archive.bedtime.news/main/601-700",
     "label": "睡前消息文稿库目录页提示",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://space.bilibili.com/316568752/video",
+    "label": "B站投稿间隔 117 天（2023-05-30 → 2023-09-24），超过近期中位间隔 3 倍",
+    "date": "2023-09-24"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -418,7 +424,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -455,10 +461,16 @@
     "url": "https://archive.bedtime.news/main/601-700",
     "label": "睡前消息文稿库目录页提示",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://space.bilibili.com/316568752/video",
+    "label": "B站投稿间隔 11 天（2023-11-19 → 2023-11-30），超过近期中位间隔 3 倍",
+    "date": "2023-11-30"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -495,7 +507,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -677,10 +689,16 @@
     "url": "https://www.youtube.com/watch?v=TaCs6nyoOCI",
     "label": "YouTube 同期更新：【睡前消息686】长峰医院大火 百度推荐的临终关怀",
     "date": "2023-12-19"
+   },
+   {
+    "kind": "other",
+    "url": "https://space.bilibili.com/316568752/video",
+    "label": "B站投稿间隔 366 天（2023-12-17 → 2024-12-17），超过近期中位间隔 3 倍",
+    "date": "2024-12-17"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -710,7 +728,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -740,7 +758,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -777,7 +795,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -807,7 +825,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -837,7 +855,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -863,10 +881,16 @@
     "url": "https://archive.bedtime.news/main/901-1000",
     "label": "睡前消息文稿库目录页提示",
     "date": null
+   },
+   {
+    "kind": "other",
+    "url": "https://space.bilibili.com/316568752/video",
+    "label": "B站投稿间隔 19 天（2025-08-31 → 2025-09-19），超过近期中位间隔 3 倍",
+    "date": "2025-09-19"
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -896,7 +920,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -920,7 +944,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -950,7 +974,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -974,7 +998,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1011,7 +1035,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1048,7 +1072,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1078,7 +1102,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1108,7 +1132,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1138,7 +1162,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1168,7 +1192,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1205,7 +1229,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  },
  {
@@ -1280,7 +1304,7 @@
    }
   ],
   "detected_by": "auto",
-  "updated_at": "2026-11-07T03:24:17+08:00",
+  "updated_at": "2026-11-07T13:57:48+08:00",
   "voluntary": false
  }
 ]
