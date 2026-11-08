@@ -1,18 +1,18 @@
 {
  "schema": 1,
- "last_check": "2026-11-08T21:23:59+08:00",
+ "last_check": "2026-11-09T06:04:29+08:00",
  "check_interval_hours": 6,
  "account": {
   "mid": 316568752,
-  "name": "马督工",
-  "silence": 0,
-  "sign": "热河省蛮子，刘亦菲粉丝。商务合作微信：MQZ998888",
-  "follower": 2194081
+  "name": null,
+  "silence": null,
+  "sign": null,
+  "follower": 2194168
  },
  "last_upload": {
-  "bvid": "BV16u4g6cE3b",
-  "date": "2026-11-03",
-  "episode_no": 1126
+  "bvid": "BV19uW76YE7B",
+  "date": "2026-11-08",
+  "episode_no": 1128
  },
  "open_event_id": null
 }
