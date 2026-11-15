@@ -1,9 +1,9 @@
 {
- "fetched_at": "2026-11-15T06:30:47.230470+00:00",
+ "fetched_at": "2026-11-15T18:51:15.372853+00:00",
  "repo": "https://github.com/bedtimenews/bedtimenews-archive-contents",
  "commit": [
-  "3944f1c780fe4ed03e77df970a798615c078a677",
-  "2026-11-07T12:32:01Z"
+  "ebe116338e0c1533ae0ee2a652ed8e47d4d51dab",
+  "2026-11-15T13:09:01Z"
  ],
  "episodes": [
   {
@@ -3365,6 +3365,90 @@
    "spoken_wd": 4,
    "url": "https://archive.bedtime.news/main/1101-1200/1124",
    "wiki_created": "2026-10-31T09:36:03.109Z"
+  },
+  {
+   "no": 1125,
+   "kind": "main",
+   "title": "不朽凡人01 丨 乙肝治愈的希望【睡前消息1125】",
+   "bvid": "BV1t74w6XEdQ",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1125",
+   "wiki_created": "2026-11-15T12:47:38.700Z"
+  },
+  {
+   "no": 1126,
+   "kind": "main",
+   "title": "【睡前消息1126】广东省和广宁省比空调，输给越南还能输谁？",
+   "bvid": "BV16u4g6cE3b",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1126",
+   "wiki_created": "2026-11-15T12:54:25.685Z"
+  },
+  {
+   "no": 1127,
+   "kind": "main",
+   "title": "【睡前消息1127】（此期直接跳过）",
+   "bvid": null,
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1127",
+   "wiki_created": "2026-11-15T12:59:50.973Z"
+  },
+  {
+   "no": 1128,
+   "kind": "main",
+   "title": "【睡前消息1128】理性的任性 新加坡公务员自我加薪",
+   "bvid": "BV19uW76YE7B",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1128",
+   "wiki_created": "2026-11-15T12:55:16.029Z"
+  },
+  {
+   "no": 1129,
+   "kind": "main",
+   "title": "【睡前消息1129】横向经费逼死教师 美国经验不能照搬（注：自娱自乐为后修改）",
+   "bvid": "BV19uW76YE7B",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1129",
+   "wiki_created": "2026-11-15T12:57:18.402Z"
+  },
+  {
+   "no": 1130,
+   "kind": "main",
+   "title": "【睡前消息1130】海豹奖开席 一个老编辑的感慨",
+   "bvid": "BV1wRsV6gEeF",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1130",
+   "wiki_created": "2026-11-15T12:58:29.074Z"
+  },
+  {
+   "no": 1131,
+   "kind": "main",
+   "title": "【睡前消息1131】暑假错过的那些事",
+   "bvid": "BV1zesH6dEHP",
+   "youtube_id": null,
+   "xigua_id": null,
+   "spoken_date": null,
+   "spoken_wd": null,
+   "url": "https://archive.bedtime.news/main/1101-1200/1131",
+   "wiki_created": "2026-11-15T12:59:11.943Z"
   },
   {
    "no": 201,
@@ -10603,6 +10687,11 @@
   {
    "no": 1074,
    "title": "【睡前消息1074】上访要开“进京证”",
+   "note": null
+  },
+  {
+   "no": 1127,
+   "title": "【睡前消息1127】此期直接跳过",
    "note": null
   }
  ],

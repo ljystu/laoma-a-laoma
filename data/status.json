@@ -1,13 +1,13 @@
 {
  "schema": 1,
- "last_check": "2026-11-15T14:30:42+08:00",
+ "last_check": "2026-11-16T02:51:02+08:00",
  "check_interval_hours": 6,
  "account": {
   "mid": 316568752,
-  "name": "马督工",
-  "silence": 0,
-  "sign": "热河省蛮子，刘亦菲粉丝。商务合作微信：MQZ998888",
-  "follower": 2194293
+  "name": null,
+  "silence": null,
+  "sign": null,
+  "follower": 2194315
  },
  "last_upload": {
   "bvid": "BV1wRsV6gEeF",
