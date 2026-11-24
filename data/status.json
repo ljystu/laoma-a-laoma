@@ -1,13 +1,13 @@
 {
  "schema": 1,
- "last_check": "2026-11-24T17:53:32+08:00",
+ "last_check": "2026-11-25T06:26:16+08:00",
  "check_interval_hours": 6,
  "account": {
   "mid": 316568752,
   "name": null,
   "silence": null,
   "sign": null,
-  "follower": 2196080
+  "follower": 2196181
  },
  "last_upload": {
   "bvid": "BV1vBypzDE63",
